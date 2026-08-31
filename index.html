@@ -571,16 +571,35 @@
     ]
   }];
   let idx=0;
+  // 歌词同步用（按每行字数分配时间，更贴近真实节奏）
+  let lineW=[], lineStart=[], lineEls=[];
 
   function fmt(s){ if(!isFinite(s)) return '0:00'; const m=Math.floor(s/60), ss=Math.floor(s%60); return m+':'+(ss<10?'0':'')+ss; }
   function mmss(t){ return fmt(t); }
 
-  // 构建歌词行
+  // 构建歌词行（记录每行字数权重 + 元素引用，用于同步）
   function buildLyric(){
     const t=tracks[idx];
+    lineW=[]; lineStart=[]; lineEls=[];
     let html='<div class="ly-title">'+t.title+' · '+t.artist+'</div>';
-    t.lyric.forEach((ln,i)=>{ html+='<div class="line" data-i="'+i+'">'+ln+'</div>'; });
+    t.lyric.forEach((ln,i)=>{
+      lineW[i]=Math.max(1, ln.replace(/\s+/g,'').length);
+      html+='<div class="line" data-i="'+i+'">'+ln+'</div>';
+    });
     lyricsBox.innerHTML=html;
+    lineEls=Array.from(lyricsBox.querySelectorAll('.line'));
+  }
+  // 根据每行字数权重分配时间点（在已知 duration 后调用）
+  function computeTimes(){
+    const n=lineW.length, dur=audio.duration||0;
+    if(!dur||n===0)return;
+    const total=lineW.reduce((a,b)=>a+b,0)||1;
+    // 歌曲约有前奏空隙，把末尾10%留作收尾缓冲，其余按字数比例分配
+    let cursor=0;
+    for(let i=0;i<n;i++){
+      lineStart[i]=cursor;
+      cursor += (lineW[i]/total)*dur*0.92;
+    }
   }
   // 构建歌单
   function renderList(){
@@ -600,6 +619,7 @@
     status.textContent=autoplay?'正在加载…':'点击开始播放';
     buildLyric(); renderList();
     seek.value=0; pTime.textContent='0:00 / 0:00';
+    computeTimes();
     if(autoplay) playAudio();
   }
   function loadTrack(i,autoplay){ idx=i; setSeek(autoplay); }
@@ -617,12 +637,14 @@
     status.textContent='已暂停 · 点击继续';
   }
   function syncLyric(){
-    const lines=lyricsBox.querySelectorAll('.line');
-    const n=lines.length;
-    const ratio=audio.duration? audio.currentTime/audio.duration : 0;
-    const active=Math.min(n-1, Math.floor(ratio*n));
-    lines.forEach((el,i)=> el.classList.toggle('active', i===active));
-    const act=lines[active];
+    if(!lineStart.length) computeTimes();
+    if(!lineStart.length) return;
+    const cur=audio.currentTime;
+    // 找到当前行（时间轴二分/遍历）
+    let active=0;
+    for(let i=lineStart.length-1;i>=0;i--){ if(cur>=lineStart[i]){ active=i; break; } }
+    lineEls.forEach((el,i)=> el.classList.toggle('active', i===active));
+    const act=lineEls[active];
     if(act) act.scrollIntoView({block:'nearest',behavior:'smooth'});
   }
 
@@ -643,6 +665,9 @@
       if(!audio.paused && lyricsBox.classList.contains('show')) syncLyric();
     }
   });
+  // 拿到真实时长后重新计算歌词时间轴
+  audio.addEventListener('loadedmetadata',()=>{ computeTimes(); });
+  audio.addEventListener('durationchange',()=>{ computeTimes(); });
   audio.addEventListener('ended',()=>{ loadTrack((idx+1)%tracks.length, true); });
   audio.addEventListener('error',()=>{ if(audio.getAttribute('src')) status.textContent='找不到文件：'+tracks[idx].file; });
   seek.addEventListener('input',()=>{ if(audio.duration) audio.currentTime=seek.value/100*audio.duration; });
