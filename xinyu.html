@@ -1959,7 +1959,7 @@ if (favorites.length === 0) {
                     if (myMatches.length === 0) { html += '<div style="margin:12px 0;opacity:0.7;">还没有解锁任何匹配档案，快去灵魂拼图里探索吧～</div>'; }
                     else {
                         myMatches.forEach((m, idx) => {
-                            html += `<div class="fav-item match-record-item" data-match-index="${idx}" style="cursor:pointer;"><div class="fav-text"><strong>${m.selfAtt} × ${m.partnerAtt} / ${m.selfMbti} × ${m.partnerMbti}</strong> — ${m.totalScore}%<br><span class="fav-meta">${m.cpName} · ${m.date}</span></div><span class="fav-remove" data-remove-match="${idx}" onclick="event.stopPropagation();">🗑️</span></div>`;
+                            html += `<div class="fav-item match-record-item" data-match-index="${idx}" style="cursor:pointer;"><div class="fav-text"><strong>${escapeHtml(m.selfAtt)} × ${escapeHtml(m.partnerAtt)} / ${escapeHtml(m.selfMbti)} × ${escapeHtml(m.partnerMbti)}</strong> — ${m.totalScore}%<br><span class="fav-meta">${escapeHtml(m.cpName)} · ${escapeHtml(m.date)}</span></div><span class="fav-remove" data-remove-match="${idx}" onclick="event.stopPropagation();">🗑️</span></div>`;
                         });
                     }
                     document.getElementById('reportContent').innerHTML = html;
@@ -2235,14 +2235,14 @@ if (favContainer) {
                     const matchRecord = { selfAtt: selfAttachment, partnerAtt, selfMbti, partnerMbti, attScore: attMatch.score, mbtiScore: cpInfo.score, totalScore, cpName: cpInfo.name, desc: cpInfo.desc, attDesc: attMatch.desc, attShort: attMatch.short, date: new Date().toLocaleDateString() };
                     myMatches.unshift(matchRecord); if (myMatches.length > 20) myMatches.length = 20; saveMatches();
                     let resultHtml = `<div class="archive-result">
-            <div style="text-align:center;font-size:1.1rem;font-weight:700;color:#5a3e55;">${selfAttachment} × ${partnerAtt} / ${selfMbti} × ${partnerMbti}</div>
+            <div style="text-align:center;font-size:1.1rem;font-weight:700;color:#5a3e55;">${escapeHtml(selfAttachment)} × ${escapeHtml(partnerAtt)} / ${escapeHtml(selfMbti)} × ${escapeHtml(partnerMbti)}</div>
             <div style="text-align:center;margin:10px 0;"><div class="archive-match-score">${totalScore}%</div><div style="font-size:0.8rem;color:#8a7b9a;">综合关系动力指数</div></div>
             <div class="match-section-title">💞 依恋动力学分析 <span class="match-label">匹配度 ${attMatch.score}%</span></div>
-            <div style="font-size:0.8rem;color:#7b5e77;">互动模式：「${attMatch.short}」</div>
+            <div style="font-size:0.8rem;color:#7b5e77;">互动模式：「${escapeHtml(attMatch.short)}」</div>
             <div style="margin:6px 0;line-height:1.7;">${attMatch.desc}</div>
             <hr style="border-color:rgba(200,190,200,0.3);margin:8px 0;">
             <div class="match-section-title">🧠 认知功能配对分析 <span class="match-label">匹配度 ${cpInfo.score}%</span></div>
-            <div style="font-size:0.9rem;font-weight:600;color:#5a3e55;">「${cpInfo.name}」${cpInfo.hasCpName ? '' : ' <span style="font-size:0.7rem;color:#8a7b9a;">(算法推算)</span>'}</div>
+            <div style="font-size:0.9rem;font-weight:600;color:#5a3e55;">「${escapeHtml(cpInfo.name)}」${cpInfo.hasCpName ? '' : ' <span style="font-size:0.7rem;color:#8a7b9a;">(算法推算)</span>'}</div>
             <div style="margin:6px 0;line-height:1.7;">${cpInfo.desc}</div>
             <div style="text-align:center;font-size:0.7rem;color:#8a7b9a;margin-top:12px;">※ 基于 Bowlby 依恋理论与 Jung 心理类型学的动力学模型<br>真实关系质量取决于双方的情感投入与共同成长 💕</div>
           </div>`;

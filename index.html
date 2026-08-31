@@ -450,9 +450,9 @@
     g.restore();
   }
 
-  let t=0, bgPaused=false;
+  let t=0, bgPaused=false, pageHidden=false;
   function tick(){
-    if(!bgPaused){
+    if(!bgPaused && !pageHidden){
       t += .016;
       ctx.clearRect(0,0,W,H);
       drawSky(ctx);
@@ -471,6 +471,8 @@
   // 彩蛋打开时暂停主站背景动画，关闭恢复（避免双份动画卡顿）
   window.pauseBg=function(){ bgPaused=true; };
   window.resumeBg=function(){ bgPaused=false; };
+  // 页面切到后台时暂停背景动画，回到前台恢复（省电）
+  document.addEventListener('visibilitychange',()=>{ pageHidden=document.hidden; });
   tick();
 })();
 
@@ -639,18 +641,19 @@
     if(autoplay) playAudio();
   }
   function loadTrack(i,autoplay){ idx=i; setSeek(autoplay); }
-  function playAudio(){
+  function playAudio(label){
+    const txt = (label? label+' · ' : '正在播放 · ')+tracks[idx].title;
     if(audio.muted) audio.muted=false;  // 若因兜底被静音，先恢复
     audio.play().then(()=>{
       btn.textContent='⏸'; btn.classList.add('playing');
-      status.textContent='正在播放 · '+tracks[idx].title;
+      status.textContent=txt;
     }).catch(()=>{
       // 自动播放被拦截时：静音试播一次，成功则解除静音
       audio.muted=true;
       audio.play().then(()=>{
         audio.muted=false;
         btn.textContent='⏸'; btn.classList.add('playing');
-        status.textContent='正在播放 · '+tracks[idx].title;
+        status.textContent=txt;
       }).catch(()=>{
         audio.muted=false;
         status.textContent='点击“播放”开始'; btn.textContent='▶';
@@ -683,7 +686,7 @@
   seek.addEventListener('input',()=>{ if(audio.duration) audio.currentTime=seek.value/100*audio.duration; });
 
   // 自动播放：加载后尝试播放；若被浏览器拦截，则用户任意点击时立即播放一次
-  const tryAuto=()=>{ audio.play().then(()=>{ btn.textContent='⏸'; btn.classList.add('playing'); status.textContent='正在自动播放 · '+tracks[idx].title; }).catch(()=>{}); };
+  const tryAuto=()=>{ playAudio('正在自动播放'); };
   setTimeout(tryAuto,600);
   document.addEventListener('click',function once(){
     if(audio.paused){ tryAuto(); }
