@@ -9,7 +9,7 @@
   :root{
     --ink:#2b2b3a; --sub:#5c5c72;
     --ac1:#7c5cff; --ac2:#ff7a59;
-    --card:rgba(255,255,255,.92);
+    --card:rgba(255,255,255,.62);
     --shadow:0 12px 34px rgba(60,60,120,.18);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -23,12 +23,10 @@
   .wrap{
     position:relative;z-index:1;
     max-width:900px;margin:24px auto 90px;padding:26px 20px 40px;
-    background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    border-radius:26px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.6);
   }
   /* hero */
-  .hero{text-align:center;padding:34px 16px 26px}
+  .hero{text-align:center;padding:34px 16px 26px;background:rgba(255,255,255,.66);
+    border-radius:24px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.7);margin-bottom:26px}
   .app-logo{width:96px;height:96px;border-radius:24px;margin:0 auto 14px;object-fit:contain;
     background:#fff;box-shadow:var(--shadow);padding:8px;display:block}
   .badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
@@ -75,7 +73,8 @@
   .repo{background:linear-gradient(120deg,#f3f1ff,#fff2ec);border:1px solid #eee;border-radius:18px;padding:22px}
   .repo p{font-size:14px;color:var(--sub);margin-bottom:8px}
   .repo code{background:#fff;border:1px solid #eee;padding:3px 10px;border-radius:8px;font-size:12.5px;color:var(--ink)}
-  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:34px}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:34px;background:rgba(255,255,255,.5);
+    border-radius:14px;padding:12px;border:1px solid rgba(255,255,255,.6)}
 
   /* 音乐播放器 */
   #player{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;
