@@ -172,6 +172,51 @@
   #xinyuFrame{width:100%;height:100%;border:0;background:#fdfbf7;display:block}
   #xinyuLoad{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
     color:#b390a5;font-size:15px;background:#fdfbf7;pointer-events:none}
+/* ============ 深度自适应：安全区 + 竖屏长屏 + 横屏 + 大屏/平板比例 ============ */
+/* 全局：规避系统导航栏/手势条/刘海/状态栏，防止固定悬浮元素被遮挡 */
+#player{ bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+.pop{ bottom: calc(66px + env(safe-area-inset-bottom, 0px)); }
+#eggBtn{ bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+#eggTip{ bottom: calc(142px + env(safe-area-inset-bottom, 0px)); }
+#xinyuClose{ top: calc(14px + env(safe-area-inset-top, 0px)); right: calc(14px + env(safe-area-inset-right, 0px)); }
+
+/* 竖直长屏（如 6.78 英寸 ≈ 20:9，高度远大于宽度）：给底部悬浮留足空间，避免“彩蛋上面被遮” */
+@media (orientation: portrait) and (min-height: 760px){
+  .wrap{ padding-bottom: 150px; }
+  #player{ bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
+  #eggBtn{ bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+  #eggTip{ bottom: calc(154px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* 一般横屏：播放器收窄靠左，彩蛋与提示固定在右下，弹层限高可滚动，避免右下悬浮栏遮挡 */
+@media (orientation: landscape){
+  .wrap{ max-width: 1240px; margin: 16px auto 40px; padding: 18px 24px 34px; }
+  #player{ left: 16px; transform: none; justify-content: flex-start; max-width: min(560px, calc(100% - 120px)); }
+  .pop{ left: 16px; transform: none; bottom: calc(74px + env(safe-area-inset-bottom, 0px)); max-width: min(460px, calc(100% - 130px)); }
+  #lyrics, #plPanel{ max-height: 58vh; }
+  #eggBtn{ right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 42px; height: 42px; }
+  #eggTip{ right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(66px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* 更矮的横屏（手机横屏高度 < 520px）：进一步收紧，避免元素溢出 */
+@media (orientation: landscape) and (max-height: 520px){
+  .hero{ padding: 22px 16px 18px; }
+  .dl-btn{ padding: 12px 26px; font-size: 16px; }
+  .step{ font-size: 12px; }
+  #player{ padding: 6px 10px; }
+  #playBtn{ width: 34px; height: 34px; }
+  .navBtn{ width: 26px; height: 26px; }
+  #seek{ width: 90px; }
+  .pinfo{ max-width: 140px; }
+}
+
+/* 大屏 / 平板（≥900px 宽）：放宽主容器，悬浮元素适度放大，间距加大 */
+@media (min-width: 900px){
+  .wrap{ max-width: 1040px; }
+  #eggBtn{ width: 50px; height: 50px; bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
+  #eggTip{ bottom: calc(170px + env(safe-area-inset-bottom, 0px)); }
+}
+
 </style>
 </head>
 <body>
@@ -186,7 +231,7 @@
     <h1>创作助手 · 剧本工坊</h1>
     <p class="tagline">画板式剧本创作工具 —— 在无限画布上自由组织人物 / 剧情 / 线索，支持小说、轻小说、RPG、Galgame、影视脚本。可单人创作，也可局域网多人协同，云端多版本备份。</p>
     <div class="meta">
-      <span>版本 <b>v1.29</b></span>
+      <span>版本 <b>v1.30</b></span>
       <span>安装包 <b>4.3 MB</b></span>
       <span>类型 <b>创作工具</b></span>
       <span>系统 <b>Android 7.0+</b></span>
@@ -195,10 +240,10 @@
 
   <!-- DOWNLOAD -->
   <div class="dlbox">
-    <a class="dl-btn" href="creation-studio-v1.29.apk" download>
-      <span class="ic">⬇</span> 下载安装包 v1.29
+    <a class="dl-btn" href="creation-studio-v1.30.apk" download>
+      <span class="ic">⬇</span> 下载安装包 v1.30
     </a>
-    <div class="dl-note">版本号 <b>v1.29</b> · 大小 4.3 MB</div>
+    <div class="dl-note">版本号 <b>v1.30</b> · 大小 4.3 MB</div>
     <div class="steps">
       <div class="step"><span class="n">1</span><b>下载 APK</b>点上方按钮，将安装包保存到手机</div>
       <div class="step"><span class="n">2</span><b>允许安装</b>首次安装需在系统里开启「允许安装未知来源应用」</div>
@@ -225,6 +270,7 @@
   <section>
     <h2>最近更新</h2>
     <div class="log">
+      <div class="log-item"><div class="log-ver">v1.30</div><div class="log-desc">画布新增「＋ 新建卡片」按钮（不再依赖双击，适配荣耀等全机型）；选项弹窗加安全区偏移与滚动自适应，弹窗不再裁掉底部选项；官网对大屏（6.78 英寸 20:9）与横屏做深度自适应。<span>2026 · 最新版</span></div></div>
       <div class="log-item"><div class="log-ver">v1.29</div><div class="log-desc">最新版本，在 v1.23 基础上优化体验并修复细节问题。<span>2026 · 最新版</span></div></div>
       <div class="log-item"><div class="log-ver">v1.23</div><div class="log-desc">云同步手机端直接可用（绕过 WebView CORS）；API 转发增加 CORS 预检；修复新建卡片标题重复键警告。<span>2024</span></div></div>
       <div class="log-item"><div class="log-ver">v1.22</div><div class="log-desc">新增 AI 生成历史面板：记录每次 AI 替换 / 追加正文，可一键恢复回退到任意 AI 版本（恢复前自动备份）。<span>侧栏新增 AI 历史入口</span></div></div>
@@ -244,7 +290,7 @@
     </div>
   </section>
 
-  <footer>创作助手 · 剧本工坊 — 下载与说明 · 版本 v1.29 · 本页为静态说明页，可离线打开</footer>
+  <footer>创作助手 · 剧本工坊 — 下载与说明 · 版本 v1.30 · 本页为静态说明页，可离线打开</footer>
 </div>
 
 <!-- 音乐播放器 -->
