@@ -30,15 +30,52 @@
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-start: #fdfbf7;
-                --bg-end: #f9f2f0;
-                --accent: #cbb0c0;
-                --card-bg: rgba(60, 50, 60, 0.6);
-                --card-border: rgba(90, 75, 90, 0.5);
-                --text: #e9dce8;
-                --text-light: #b7a6b7;
-                --btn-bg: rgba(70, 60, 70, 0.7);
-                --btn-active-bg: rgba(140, 120, 140, 0.5);
+                /* 深色：背景改为深夜紫粉渐变，整体协调 */
+                --bg-start: #191425;
+                --bg-end: #241a2b;
+                --accent: #c9a7c0;
+                --card-bg: rgba(45, 36, 50, 0.72);
+                --card-border: rgba(130, 104, 130, 0.35);
+                --text: #efe4ee;
+                --text-light: #b9a9ba;
+                --btn-bg: rgba(58, 46, 62, 0.75);
+                --btn-hover: rgba(76, 60, 80, 0.95);
+                --btn-active-bg: rgba(150, 122, 150, 0.5);
+                --shadow: 0 12px 30px rgba(0,0,0,0.45), 0 6px 12px rgba(0,0,0,0.3);
+                --game-mode-bg: rgba(40, 34, 44, 0.85);
+                --game-mode-text: #e6d9e6;
+                --game-mode-active-bg: rgba(150, 122, 150, 0.55);
+                --game-mode-active-text: #f8f0f8;
+                --game-mode-hover: rgba(62, 52, 66, 0.9);
+                --game-mode-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            }
+            /* 深色适配：把硬编码浅底组件统一转深，保证协调可读 */
+            .modal-dialog, .stage-option, .special-option, .archive-select,
+            .archive-result, .explanation-box, .special-skip-btn,
+            .small-btn, .test-btn-sm, .shop-item button,
+            .favorite-btn, .role-badge, .match-label,
+            .rank-table th, .rank-table td, .shop-item, .fav-item,
+            .shop-section h4, .match-section-title, .archive-header,
+            #resultTitle, #quizTitle, #resultMessage, #quizQuestion {
+                background-color: rgba(56, 45, 60, 0.94) !important;
+                color: var(--text) !important;
+                border-color: rgba(130, 104, 130, 0.4) !important;
+            }
+            .rank-table th, .shop-section h4, .match-section-title,
+            .game-difficulty, .role-badge, .match-label {
+                color: #cdb9cd !important;
+            }
+            .stage-option, .special-option, .archive-select {
+                border-color: rgba(130, 104, 130, 0.5) !important;
+            }
+            .action-btn:hover, .stage-option:hover, .special-option:hover,
+            .archive-select:hover, .special-skip-btn:hover, .test-btn-sm:hover {
+                background-color: rgba(70, 56, 74, 0.96) !important;
+                border-color: #c9a7c0 !important;
+            }
+            .rank-table td { border-color: rgba(130,104,130,0.3) !important; }
+            .fav-item:hover, .fav-item:active {
+                background: rgba(150, 122, 150, 0.18) !important;
             }
         }
         * {
