@@ -7,19 +7,28 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
 <style>
   :root{
-    --bg:#f6f7fb; --bg2:#ffffff; --ink:#2b2b3a; --sub:#6b6b80;
-    --line:#e7e8f0; --ac1:#7c5cff; --ac2:#ff7a59;
-    --card:#ffffff; --shadow:0 12px 34px rgba(60,60,120,.12);
+    --ink:#2b2b3a; --sub:#5c5c72;
+    --ac1:#7c5cff; --ac2:#ff7a59;
+    --card:rgba(255,255,255,.92);
+    --shadow:0 12px 34px rgba(60,60,120,.18);
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
   body{
     font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    background:linear-gradient(160deg,#eef0fb 0%,#f6f7fb 40%,#fdf0ea 100%);
-    color:var(--ink); min-height:100vh; line-height:1.7;
+    color:var(--ink); min-height:100vh; line-height:1.7; overflow-x:hidden;
   }
-  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+  /* 动态背景画布 */
+  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+  .wrap{
+    position:relative;z-index:1;
+    max-width:900px;margin:24px auto 90px;padding:26px 20px 40px;
+    background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-radius:26px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.6);
+  }
   /* hero */
-  .hero{text-align:center;padding:38px 16px 28px}
+  .hero{text-align:center;padding:34px 16px 26px}
   .app-logo{width:96px;height:96px;border-radius:24px;margin:0 auto 14px;object-fit:contain;
     background:#fff;box-shadow:var(--shadow);padding:8px;display:block}
   .badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
@@ -28,10 +37,10 @@
   h1{font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:.5px;margin-bottom:6px}
   .tagline{color:var(--sub);font-size:clamp(14px,3vw,17px);max-width:640px;margin:6px auto 22px}
   .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px}
-  .meta span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:13px;color:var(--sub)}
+  .meta span{background:#fff;border:1px solid #eee;border-radius:999px;padding:6px 16px;font-size:13px;color:var(--sub)}
   .meta b{color:var(--ink)}
   /* download */
-  .dlbox{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 24px;
+  .dlbox{background:var(--card);border:1px solid #eee;border-radius:22px;padding:30px 24px;
     box-shadow:var(--shadow);text-align:center;margin-bottom:36px}
   .dl-btn{display:inline-flex;align-items:center;gap:10px;font-size:18px;font-weight:700;
     background:linear-gradient(90deg,var(--ac1),var(--ac2));color:#fff;padding:15px 40px;border-radius:999px;
@@ -50,27 +59,45 @@
   h2{font-size:24px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px}
   h2::before{content:"";width:5px;height:22px;border-radius:3px;background:linear-gradient(var(--ac1),var(--ac2))}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 6px 18px rgba(60,60,120,.06);transition:transform .2s}
+  .card{background:var(--card);border:1px solid #eee;border-radius:18px;padding:22px;box-shadow:0 6px 18px rgba(60,60,120,.08);transition:transform .2s}
   .card:hover{transform:translateY(-4px)}
   .card .emoji{font-size:26px;margin-bottom:10px}
   .card h3{font-size:17px;margin-bottom:6px}
   .card p{font-size:13.5px;color:var(--sub)}
   /* changelog */
-  .log{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:6px 22px}
-  .log-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .log{background:var(--card);border:1px solid #eee;border-radius:18px;padding:6px 22px}
+  .log-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed #e7e8f0}
   .log-item:last-child{border-bottom:0}
   .log-ver{flex:0 0 66px;font-weight:800;color:var(--ac1);font-size:15px}
   .log-desc{font-size:13.5px;color:var(--ink)}
   .log-desc span{color:var(--sub);font-size:12px;display:block;margin-top:2px}
   /* repo */
-  .repo{background:linear-gradient(120deg,#f3f1ff,#fff2ec);border:1px solid var(--line);border-radius:18px;padding:22px}
+  .repo{background:linear-gradient(120deg,#f3f1ff,#fff2ec);border:1px solid #eee;border-radius:18px;padding:22px}
   .repo p{font-size:14px;color:var(--sub);margin-bottom:8px}
-  .repo code{background:#fff;border:1px solid var(--line);padding:3px 10px;border-radius:8px;font-size:12.5px;color:var(--ink)}
+  .repo code{background:#fff;border:1px solid #eee;padding:3px 10px;border-radius:8px;font-size:12.5px;color:var(--ink)}
   footer{text-align:center;color:var(--sub);font-size:12px;margin-top:34px}
-  @media(max-width:560px){ .steps{grid-template-columns:1fr} .dl-btn{width:100%;padding:15px 0} }
+
+  /* 音乐播放器 */
+  #player{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;
+    display:flex;align-items:center;gap:14px;padding:10px 18px;border-radius:999px;
+    background:rgba(255,255,255,.9);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(60,60,120,.3);
+    border:1px solid rgba(255,255,255,.7)}
+  #playBtn{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--ac1),var(--ac2));color:#fff;font-size:18px;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(124,92,255,.4);transition:transform .15s}
+  #playBtn:hover{transform:scale(1.08)}
+  .pinfo{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+  .ptitle{font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pstatus{font-size:11.5px;color:var(--sub)}
+  #seek{width:140px}
+  .pnote{font-size:11px;color:var(--sub);white-space:nowrap}
+
+  @media(max-width:560px){ .steps{grid-template-columns:1fr} .dl-btn{width:100%;padding:15px 0} #player{width:calc(100% - 24px);justify-content:center} .pnote{display:none} #seek{width:120px} }
 </style>
 </head>
 <body>
+<canvas id="bg"></canvas>
+
 <div class="wrap">
 
   <!-- HERO -->
@@ -140,5 +167,243 @@
 
   <footer>创作助手 · 剧本工坊 — 下载与说明 · 版本 v1.29 · 本页为静态说明页，可离线打开</footer>
 </div>
+
+<!-- 音乐播放器 -->
+<div id="player">
+  <button id="playBtn" title="播放 / 暂停">▶</button>
+  <div class="pinfo">
+    <div class="ptitle">一见如故 · 许嵩</div>
+    <div class="pstatus" id="pStatus">未加载背景音乐（bgm.mp3）</div>
+  </div>
+  <input id="seek" type="range" min="0" max="100" value="0" step="1" />
+  <div class="pnote">🔊 点击按钮播放</div>
+  <audio id="audio" src="bgm.mp3" loop preload="auto"></audio>
+</div>
+
+<script>
+/* ============ 动态治愈背景：樱花飘落 + 海边电铁 ============ */
+(function(){
+  const cv = document.getElementById('bg');
+  const ctx = cv.getContext('2d');
+  let W, H, DPR;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio||1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W*DPR; cv.height = H*DPR;
+    cv.style.width = W+'px'; cv.style.height = H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  window.addEventListener('resize', resize); resize();
+
+  const isMobile = W < 760;
+
+  // 樱花粒子
+  const petals = [];
+  const PETAL_N = isMobile ? 45 : 90;
+  const petalColors = ['#ffd7e6','#ffc3d8','#ffb7cf','#ffe3ee','#ffcfe0'];
+  function makePetal(randY){
+    return {
+      x: Math.random()*W,
+      y: randY ? Math.random()*H : -20,
+      s: 4+Math.random()*6,
+      vy: .5+Math.random()*1.1,
+      vx: -.3+Math.random()*.7,
+      phase: Math.random()*Math.PI*2,
+      sp: .01+Math.random()*.02,
+      rot: Math.random()*Math.PI*2,
+      c: petalColors[(Math.random()*petalColors.length)|0],
+      alpha: .55+Math.random()*.45
+    };
+  }
+  for(let i=0;i<PETAL_N;i++) petals.push(makePetal(true));
+
+  // 电车横坐标
+  let trainX = -260;
+  const trainSpeed = .55;
+
+  // 云朵
+  const clouds = [];
+  function makeCloud(randX){
+    return { x: randX ? Math.random()*W : W+200, y: 40+Math.random()*110, s: .6+Math.random()*.8, v:.12+Math.random()*.12 };
+  }
+  for(let i=0;i<3;i++) clouds.push(makeCloud(true));
+
+  function drawSky(g){
+    const grd = g.createLinearGradient(0,0,0,H);
+    grd.addColorStop(0,'#aee6ff');
+    grd.addColorStop(.45,'#cfeffb');
+    grd.addColorStop(.72,'#ffe8f3');
+    grd.addColorStop(1,'#ffd7e8');
+    g.fillStyle=grd; g.fillRect(0,0,W,H);
+    // 太阳光晕
+    const grd2=g.createRadialGradient(W*.78,H*.2,10,W*.78,H*.2,H*.55);
+    grd2.addColorStop(0,'rgba(255,255,240,.85)');
+    grd2.addColorStop(1,'rgba(255,255,240,0)');
+    g.fillStyle=grd2; g.fillRect(0,0,W,H);
+  }
+  function drawClouds(g){
+    g.save();
+    clouds.forEach(c=>{
+      g.fillStyle='rgba(255,255,255,.85)';
+      [[0,0,26],[22,-8,18],[-20,-6,17],[10,8,22]].forEach(p=>{
+        g.beginPath(); g.arc(c.x+p[0], c.y+p[1], p[2]*c.s, 0, Math.PI*2); g.fill();
+      });
+      c.x += c.v; if(c.x > W+180){ c.x=-200; c.y=40+Math.random()*110; }
+    });
+    g.restore();
+  }
+  const seaY = H*.66;
+  function drawSea(g, t){
+    g.save();
+    // 海水
+    const grd=g.createLinearGradient(0,seaY,0,H);
+    grd.addColorStop(0,'#8fd0ee'); grd.addColorStop(1,'#4fa4d6');
+    g.fillStyle=grd; g.fillRect(0,seaY,W,H-seaY);
+    // 波浪
+    for(let layer=0; layer<3; layer++){
+      g.beginPath();
+      const amp=6+layer*3, y0=seaY+8+layer*16, wl=90+layer*25;
+      for(let x=0;x<=W;x+=6){
+        const y=y0+Math.sin(x/wl*Math.PI*2 + t*.8 + layer)*amp;
+        if(x===0)g.moveTo(x,y); else g.lineTo(x,y);
+      }
+      g.lineTo(W,H); g.lineTo(0,H); g.closePath();
+      g.fillStyle='rgba(255,255,255,'+(0.16-layer*.04)+')';
+      g.fill();
+    }
+    g.restore();
+  }
+  function drawRail(g){
+    g.save();
+    // 沙滩/路基
+    g.fillStyle='#e8d9c4';
+    g.fillRect(0,H-52,W,52);
+    g.fillStyle='#d8c4ab';
+    g.fillRect(0,H-30,W,30);
+    // 铁轨
+    const gy1=H-36, gy2=H-46;
+    g.strokeStyle='#8a7a66'; g.lineWidth=3;
+    g.beginPath(); g.moveTo(0,gy1); g.lineTo(W,gy1); g.stroke();
+    g.beginPath(); g.moveTo(0,gy2); g.lineTo(W,gy2); g.stroke();
+    // 枕木
+    g.strokeStyle='rgba(140,120,95,.7)'; g.lineWidth=2;
+    for(let x=-10;x<W+10;x+=34){
+      g.beginPath(); g.moveTo(x,gy2-5); g.lineTo(x,gy1+5); g.stroke();
+    }
+    g.restore();
+  }
+  function roundRect(g,x,y,w,h,r){
+    g.beginPath();
+    g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r);
+    g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath();
+  }
+  function drawTrain(g){
+    g.save();
+    const ty = H-56;  // 电车y
+    const tw=170, th=44;
+    const x=trainX;
+    // 车轮阴影
+    g.fillStyle='rgba(0,0,0,.12)';
+    g.beginPath(); g.ellipse(x+tw/2, ty+th+6, tw*.55, 6, 0,0,Math.PI*2); g.fill();
+    // 车身
+    const bodyGrd=g.createLinearGradient(0,ty,0,ty+th);
+    bodyGrd.addColorStop(0,'#fff'); bodyGrd.addColorStop(1,'#e8e6ef');
+    g.fillStyle=bodyGrd; g.strokeStyle='#9a9aa8'; g.lineWidth=2;
+    roundRect(g,x,ty,tw,th,10); g.fill(); g.stroke();
+    // 色带
+    g.fillStyle='#ff8fb0';
+    g.fillRect(x+6, ty+8, tw-12, 8);
+    // 车顶
+    g.fillStyle='#cfccdd'; roundRect(g,x+8,ty-8,tw-16,8,4); g.fill();
+    // 车窗
+    g.fillStyle='#bfe8f5';
+    for(let i=0;i<4;i++){
+      roundRect(g,x+14+i*40, ty+20, 30, 14, 5); g.fill();
+    }
+    // 车头灯
+    g.fillStyle='#fff2b0';
+    g.beginPath(); g.arc(x+tw-9, ty+th/2, 5, 0, Math.PI*2); g.fill();
+    g.restore();
+  }
+  function drawPetals(g,t){
+    petals.forEach(p=>{
+      p.y += p.vy; p.x += p.vx + Math.sin(t+p.phase)*.3;
+      p.rot += p.sp;
+      if(p.y > H+20){ Object.assign(p, makePetal(false), {phase: Math.random()*Math.PI*2}); }
+      if(p.x < -30) p.x = W+30;
+      g.save();
+      g.translate(p.x,p.y); g.rotate(p.rot);
+      g.globalAlpha=p.alpha;
+      g.fillStyle=p.c;
+      g.beginPath();
+      g.ellipse(0,0,p.s*.62,p.s,0,0,Math.PI*2);
+      g.fill();
+      g.restore();
+    });
+  }
+  function drawPassers(g,t){
+    g.save();
+    g.fillStyle='rgba(120,110,100,.5)';
+    g.font='12px sans-serif';
+    const px=W*.5+Math.sin(t*.15)*8;
+    g.fillText('樱花季 · 海之电铁', px, H-34);
+    g.restore();
+  }
+
+  let t=0;
+  function tick(){
+    t += .016;
+    ctx.clearRect(0,0,W,H);
+    drawSky(ctx);
+    drawClouds(ctx);
+    drawSea(ctx,t);
+    drawRail(ctx);
+    drawTrain(ctx,t);
+    drawPetals(ctx,t);
+    if(!isMobile) drawPassers(ctx,t);
+    // 电车移动
+    trainX += trainSpeed;
+    if(trainX > W+120) trainX = -260;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ============ 音乐播放器 ============ */
+(function(){
+  const audio=document.getElementById('audio');
+  const btn=document.getElementById('playBtn');
+  const seek=document.getElementById('seek');
+  const status=document.getElementById('pStatus');
+
+  function fmt(s){ const m=Math.floor(s/60), ss=Math.floor(s%60); return m+':'+(ss<10?'0':'')+ss; }
+
+  audio.addEventListener('loadedmetadata',()=>{ status.textContent='持续时间 '+fmt(audio.duration)+' · 点击播放'; });
+  audio.addEventListener('canplay',()=>{ if(statusElEmpty()) status.textContent='点击播放「一见如故」'; });
+  audio.addEventListener('error',()=>{ status.textContent='未找到音乐文件（bgm.mp3），请放置后可播放'; });
+
+  function statusElEmpty(){ const s=status.textContent; return s.indexOf('未加载')>=0 || s.indexOf('找不到')>=0 || s.indexOf('点击')>=0; }
+
+  btn.addEventListener('click',()=>{
+    if(audio.paused){
+      audio.play().then(()=>{
+        btn.textContent='⏸'; btn.classList.add('playing');
+        status.textContent='正在播放 · 许嵩《一见如故》';
+      }).catch(e=>{ status.textContent='无法播放：'+(e.message||''); });
+    } else {
+      audio.pause();
+      btn.textContent='▶'; btn.classList.remove('playing');
+      status.textContent='已暂停 · 点击继续';
+    }
+  });
+
+  audio.addEventListener('timeupdate',()=>{
+    if(audio.duration) seek.value = (audio.currentTime/audio.duration*100).toFixed(1);
+  });
+  seek.addEventListener('input',()=>{
+    if(audio.duration) audio.currentTime = seek.value/100*audio.duration;
+  });
+})();
+</script>
 </body>
 </html>
