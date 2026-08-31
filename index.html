@@ -77,30 +77,41 @@
     border-radius:14px;padding:12px;border:1px solid rgba(255,255,255,.6)}
 
   /* 音乐播放器 */
-  #player{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;
-    display:flex;align-items:center;gap:14px;padding:10px 18px;border-radius:999px;
-    background:rgba(255,255,255,.9);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(60,60,120,.3);
-    border:1px solid rgba(255,255,255,.7)}
-  #playBtn{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;
-    background:linear-gradient(135deg,var(--ac1),var(--ac2));color:#fff;font-size:18px;
-    display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(124,92,255,.4);transition:transform .15s}
+  #player{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;
+    display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:24px;
+    background:rgba(255,255,255,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 10px 30px rgba(60,60,120,.3);border:1px solid rgba(255,255,255,.7);max-width:min(560px,calc(100vw - 20px))}
+  #playBtn{width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--ac1),var(--ac2));color:#fff;font-size:16px;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 5px 14px rgba(124,92,255,.4);transition:transform .15s}
   #playBtn:hover{transform:scale(1.08)}
-  .pinfo{display:flex;flex-direction:column;line-height:1.25;min-width:0}
-  .ptitle{font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .pstatus{font-size:11.5px;color:var(--sub)}
-  #seek{width:130px;accent-color:var(--ac1)}
-  .navBtn{width:34px;height:34px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;
-    background:#f0edfa;color:var(--ac1);font-size:14px;display:flex;align-items:center;justify-content:center;
+  .pinfo{display:flex;flex-direction:column;line-height:1.25;min-width:0;max-width:190px}
+  .ptitle{font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pstatus{font-size:10.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #seek{width:120px;accent-color:var(--ac1);flex:1;min-width:60px;cursor:pointer}
+  .ptime{font-size:10.5px;color:var(--sub);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .navBtn{width:30px;height:30px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;
+    background:#f0edfa;color:var(--ac1);font-size:12px;display:flex;align-items:center;justify-content:center;
     transition:transform .15s,background .15s}
   .navBtn:hover{transform:scale(1.1);background:#e6e1f7}
-  .ptime{font-size:11.5px;color:var(--sub);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .pnote{font-size:11px;color:var(--sub);white-space:nowrap}
-  .playlist{display:flex;flex-direction:column;min-width:0}
-  .pl-item{font-size:11.5px;color:var(--sub);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:2px 6px;border-radius:6px}
-  .pl-item:hover{background:#efeafc;color:var(--ac1)}
-  .pl-item.active{color:var(--ac1);font-weight:700;background:#efeafc}
+  /* 歌词 & 歌单弹层 */
+  .pop{position:fixed;bottom:66px;left:50%;transform:translateX(-50%);z-index:19;
+    background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-radius:16px;box-shadow:0 10px 30px rgba(60,60,120,.3);border:1px solid rgba(255,255,255,.7);
+    padding:12px;display:none;max-width:min(440px,92vw)}
+  .pop.show{display:block}
+  #lyrics{max-height:42vh;overflow-y:auto;text-align:center}
+  #lyrics .ly-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
+  #lyrics .line{font-size:14px;color:var(--sub);line-height:1.9;padding:2px 10px;border-radius:8px;transition:color .3s,background .3s,transform .3s}
+  #lyrics .line.active{color:var(--ac1);font-weight:700;background:rgba(124,92,255,.09);transform:scale(1.04)}
+  #plPanel{font-size:13px;color:var(--ink)}
+  #plPanel .pl-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;cursor:pointer;white-space:nowrap}
+  #plPanel .pl-item:hover{background:#f2eefc;color:var(--ac1)}
+  #plPanel .pl-item.active{background:#efeafc;color:var(--ac1);font-weight:700}
+  #plPanel .pl-num{width:20px;height:20px;border-radius:6px;background:#f0edfa;color:var(--ac1);font-size:11px;display:flex;align-items:center;justify-content:center}
+  #plPanel .pl-item.active .pl-num{background:linear-gradient(135deg,var(--ac1),var(--ac2));color:#fff}
 
-  @media(max-width:560px){ .steps{grid-template-columns:1fr} .dl-btn{width:100%;padding:15px 0} #player{width:calc(100% - 24px);justify-content:center} .pnote{display:none} #seek{width:120px} }
+  @media(max-width:560px){ .steps{grid-template-columns:1fr} .dl-btn{width:100%;padding:15px 0} #player{width:calc(100% - 16px);justify-content:center;gap:6px} .pinfo{max-width:110px} #seek{width:70px} .ptime{display:none} }
 </style>
 </head>
 <body>
@@ -180,16 +191,21 @@
 <div id="player">
   <button id="prevBtn" class="navBtn" title="上一首">⏮</button>
   <button id="playBtn" title="播放 / 暂停">▶</button>
+  <button id="nextBtn" class="navBtn" title="下一首">⏭</button>
   <div class="pinfo">
     <div class="ptitle" id="pTitle">一见如故 · 许嵩</div>
     <div class="pstatus" id="pStatus">点击开始播放</div>
   </div>
   <input id="seek" type="range" min="0" max="100" value="0" step="1" />
   <span class="ptime" id="pTime">0:00 / 0:00</span>
-  <button id="nextBtn" class="navBtn" title="下一首">⏭</button>
-  <div class="playlist" id="playlist"></div>
+  <button id="lyricBtn" class="navBtn" title="歌词">词</button>
+  <button id="listBtn" class="navBtn" title="歌单">☰</button>
   <audio id="audio" preload="auto"></audio>
 </div>
+<!-- 歌词弹层 -->
+<div id="lyrics" class="pop"></div>
+<!-- 歌单弹层 -->
+<div id="plPanel" class="pop"></div>
 
 <script>
 /* ============ 动态治愈背景：樱花飘落 + 海边电铁 ============ */
@@ -288,37 +304,19 @@
     g.save();
     // 浅色沙滩
     g.fillStyle='#f0ddc0';
-    g.fillRect(0,H-72,W,72);
-    g.fillStyle='#e4cca6';
-    g.fillRect(0,H-42,W,42);
-    // 道砟碎石带
-    g.fillStyle='#cebfa7';
-    g.fillRect(0,H-34,W,20);
-    // 轨道黑色垫层(衬出双轨)
-    const gy1=H-46, gy2=H-62;
-    g.fillStyle='rgba(60,52,44,.28)';
-    g.fillRect(0,gy2-4,W,gy1-gy2+8);
-    // 钢轨(粗深)
-    g.strokeStyle='#5f5648'; g.lineWidth=6;
+    g.fillRect(0,H-64,W,64);
+    g.fillStyle='#e6cfa9';
+    g.fillRect(0,H-38,W,38);
+    // 铁轨(自然)
+    const gy1=H-42, gy2=H-56;
+    g.strokeStyle='#6f6a5e'; g.lineWidth=4;
     g.beginPath(); g.moveTo(0,gy1); g.lineTo(W,gy1); g.stroke();
     g.beginPath(); g.moveTo(0,gy2); g.lineTo(W,gy2); g.stroke();
-    // 钢轨金属高光
-    g.strokeStyle='rgba(255,255,255,.6)'; g.lineWidth=2;
-    g.beginPath(); g.moveTo(0,gy1-2); g.lineTo(W,gy1-2); g.stroke();
-    g.beginPath(); g.moveTo(0,gy2-2); g.lineTo(W,gy2-2); g.stroke();
-    // 密集枕木
-    g.strokeStyle='rgba(110,88,64,.9)'; g.lineWidth=3.5;
-    for(let x=-8;x<W+12;x+=24){
-      g.beginPath(); g.moveTo(x,gy2-5); g.lineTo(x,gy1+5); g.stroke();
+    // 枕木
+    g.strokeStyle='rgba(125,100,74,.8)'; g.lineWidth=2.5;
+    for(let x=-10;x<W+10;x+=28){
+      g.beginPath(); g.moveTo(x,gy2-4); g.lineTo(x,gy1+4); g.stroke();
     }
-    // 站台名牌
-    const bx=W*0.06, by=H-92;
-    g.fillStyle='rgba(255,255,255,.92)';
-    roundRect(g,bx,by,158,32,9); g.fill();
-    g.strokeStyle='#dd93ad'; g.lineWidth=2;
-    roundRect(g,bx,by,158,32,9); g.stroke();
-    g.fillStyle='#b7738c'; g.font='bold 15px sans-serif'; g.textAlign='center';
-    g.fillText('海之电车 · 樱见站', bx+79, by+23);
     g.restore();
   }
   function roundRect(g,x,y,w,h,r){
@@ -408,7 +406,7 @@
   tick();
 })();
 
-/* ============ 音乐播放器（三首曲目列表） ============ */
+/* ============ 音乐播放器（三首曲目 + 歌词 + 自动播放） ============ */
 (function(){
   const audio=document.getElementById('audio');
   const btn=document.getElementById('playBtn');
@@ -418,69 +416,211 @@
   const status=document.getElementById('pStatus');
   const pTitle=document.getElementById('pTitle');
   const pTime=document.getElementById('pTime');
-  const playlistEl=document.getElementById('playlist');
+  const lyricBtn=document.getElementById('lyricBtn');
+  const listBtn=document.getElementById('listBtn');
+  const lyricsBox=document.getElementById('lyrics');
+  const plPanel=document.getElementById('plPanel');
 
-  // 曲目列表（与网站目录下文件名对应）
-  const tracks = [
-    { title:'一见如故', artist:'许嵩', file:'一见如故-许嵩.mp3' },
-    { title:'心安之地', artist:'许嵩', file:'心安之地-许嵩.mp3' },
-    { title:'忽略不计', artist:'许嵩', file:'忽略不计-许嵩.mp3' }
-  ];
-  let idx = 0;
+  // 曲目 + 歌词
+  const tracks=[{
+    title:'一见如故', artist:'许嵩', file:'一见如故-许嵩.mp3',
+    lyric:[
+      '新雨煎茶 松枝添火 一缕山顶烟',
+      '乘楚台风 忆庾楼月 往事潋滟',
+      '四时风物 草木人间 穿过了眉眼',
+      '你在耳畔 素语婉转 相惜相伴',
+      '半山晨钟唤起铜兽 沉香漫庭轩',
+      '石阶露重苔滑 步履轻缓',
+      '执手闲看流云变幻',
+      '风起 恰好送碎花满肩',
+      '你在亭前 犹抱琵琶半遮面',
+      '霏微里 人缱绻',
+      '我为你簪好鬓边的玉燕',
+      '犹记 相识在他乡那天',
+      '一见如故 许是前尘的宿缘',
+      '谈轮回 无人解',
+      '先解你今生风情和锦愿',
+      '新雨煎茶 松枝添火 一缕山顶烟',
+      '乘楚台风 忆庾楼月 往事潋滟',
+      '四时风物 草木人间 穿过了眉眼',
+      '你在耳畔 素语婉转 相惜相伴',
+      '半山晨钟唤起铜兽 沉香漫庭轩',
+      '石阶露重苔滑 步履轻缓',
+      '执手闲看流云变幻',
+      '风起 恰好送碎花满肩',
+      '你在亭前 犹抱琵琶半遮面',
+      '霏微里 人缱绻',
+      '我为你簪好鬓边的玉燕',
+      '犹记 相识在他乡那天',
+      '一见如故 许是前尘的宿缘',
+      '谈轮回 无人解',
+      '先解你今生风情和锦愿'
+    ]
+  },{
+    title:'心安之地', artist:'许嵩', file:'心安之地-许嵩.mp3',
+    lyric:[
+      '新闻推送 蓝色星球哪哪哪又起了风浪',
+      '屏幕反光里 你的手掌 轻轻抚在了我的肩膀',
+      '我们把生活捏成贴合自己的形状',
+      '周遭的争强 远方的疯狂 不愿闻其详 愿闻点茶香',
+      '和你牵手走 心里就稳稳当当',
+      '看落日金芒缓缓登场',
+      '是爱的光',
+      '照进闹热的街巷',
+      '霓虹交织着斜阳',
+      '鲜花慢动作绽放',
+      '明天也许还是一样',
+      '一样就很好了',
+      '没什么奢望',
+      '有你的地方便是吾乡',
+      '曾经以为 知足常乐不过是种自我体谅',
+      '经历过跌宕 答案变明朗',
+      '缺了一点的玉 反而称王',
+      '我们每天的对话量大概在十万句以上',
+      '太多话要讲 太多话没讲',
+      '就把欢笑和难题同时打包',
+      '和你牵着手走 路会无限宽广',
+      '金芒缓缓爬上山墙',
+      '是爱的光',
+      '照进闹热的街巷',
+      '霓虹交织着斜阳',
+      '鲜花慢动作绽放',
+      '明天也许还是一样',
+      '一样就很好了',
+      '没什么奢望',
+      '有你的地方便是吾乡',
+      '有你的地方便是吾乡'
+    ]
+  },{
+    title:'忽略不计', artist:'许嵩', file:'忽略不计-许嵩.mp3',
+    lyric:[
+      '就像上个作品不经意间泄露的锋利',
+      '那是溜进情绪里客串一把的戏中戏',
+      '大多数时候生活剧情能有多平静？',
+      '"他淡淡的"',
+      '有些东西淡点为宜',
+      '打开社交媒体也发不来得意的金句',
+      '感受和真理已被前人一一道尽（包括自己）',
+      '人类每月表达欲的总和有多少TB？',
+      '其中我的 可忽略不计',
+      '我的好恶请你忽略不计',
+      '我颤动的双唇紧闭',
+      '那高谈阔论里的语病',
+      '能嗅到发作前的血腥',
+      '我的存在请你忽略不计',
+      '除非你愿随我离群索居',
+      '我直视你迟疑的眼睛',
+      '你别看我啊',
+      '我理解你',
+      '说回开篇的话题',
+      '譬如你额头上的痘印 淡淡消去',
+      '终有一天我们也会淡淡的消去',
+      '努力留下的存在过的一切证据',
+      '在时间长河里散佚 忽略不计',
+      '我的好恶请你忽略不计',
+      '我颤动的双唇紧闭',
+      '那高谈阔论里的语病',
+      '能嗅到发作前的血腥',
+      '我的存在请你忽略不计',
+      '除非你愿随我离群索居',
+      '我直视你迟疑的眼睛',
+      '你别看我啊',
+      '我理解你',
+      '我的喜悲请你忽略不计',
+      '像此刻天上飘浮烟云',
+      '我们一起踏上高山草地',
+      '饱览吧造物者良苦的用心',
+      '我的名字请你忽略不计',
+      '替我掸掉失了焦的毁誉',
+      '我直视你眨巴的眼睛',
+      '你别看我啊',
+      '我就是你'
+    ]
+  }];
+  let idx=0;
 
   function fmt(s){ if(!isFinite(s)) return '0:00'; const m=Math.floor(s/60), ss=Math.floor(s%60); return m+':'+(ss<10?'0':'')+ss; }
+  function mmss(t){ return fmt(t); }
 
+  // 构建歌词行
+  function buildLyric(){
+    const t=tracks[idx];
+    let html='<div class="ly-title">'+t.title+' · '+t.artist+'</div>';
+    t.lyric.forEach((ln,i)=>{ html+='<div class="line" data-i="'+i+'">'+ln+'</div>'; });
+    lyricsBox.innerHTML=html;
+  }
+  // 构建歌单
   function renderList(){
-    playlistEl.innerHTML='';
+    plPanel.innerHTML='';
     tracks.forEach((t,i)=>{
       const el=document.createElement('div');
       el.className='pl-item'+(i===idx?' active':'');
-      el.textContent=(i+1)+'. '+t.title;
-      el.onclick=()=>{ loadTrack(i,true); };
-      playlistEl.appendChild(el);
+      el.innerHTML='<span class="pl-num">'+(i+1)+'</span><span>'+t.title+'</span>';
+      el.onclick=()=>{ loadTrack(i,true); plPanel.classList.remove('show'); };
+      plPanel.appendChild(el);
     });
   }
-  function loadTrack(i, autoplay){
-    idx = i;
-    audio.src = tracks[i].file;
-    pTitle.textContent = tracks[i].title + ' · ' + tracks[i].artist;
-    status.textContent = autoplay ? '加载中…' : '点击开始播放';
-    renderList();
-    if(autoplay){ playAudio(); }
+  function setSeek(autoplay){
+    const t=tracks[idx];
+    audio.src=t.file;
+    pTitle.textContent=t.title+' · '+t.artist;
+    status.textContent=autoplay?'正在加载…':'点击开始播放';
+    buildLyric(); renderList();
+    seek.value=0; pTime.textContent='0:00 / 0:00';
+    if(autoplay) playAudio();
   }
+  function loadTrack(i,autoplay){ idx=i; setSeek(autoplay); }
   function playAudio(){
     audio.play().then(()=>{
-      btn.textContent='⏸';
+      btn.textContent='⏸'; btn.classList.add('playing');
       status.textContent='正在播放 · '+tracks[idx].title;
-      btn.classList.add('playing');
-    }).catch(e=>{ status.textContent='点击播放（先点一下页面）'; });
+      if(lyricsBox.classList.contains('show')) syncLyric();
+    }).catch(()=>{
+      status.textContent='点击“播放”开始'; btn.textContent='▶';
+    });
   }
   function pauseAudio(){
-    audio.pause();
-    btn.textContent='▶'; btn.classList.remove('playing');
+    audio.pause(); btn.textContent='▶'; btn.classList.remove('playing');
     status.textContent='已暂停 · 点击继续';
+  }
+  function syncLyric(){
+    const lines=lyricsBox.querySelectorAll('.line');
+    const n=lines.length;
+    const ratio=audio.duration? audio.currentTime/audio.duration : 0;
+    const active=Math.min(n-1, Math.floor(ratio*n));
+    lines.forEach((el,i)=> el.classList.toggle('active', i===active));
+    const act=lines[active];
+    if(act) act.scrollIntoView({block:'nearest',behavior:'smooth'});
   }
 
   // 初始化第一首
-  loadTrack(0,false);
-  audio.addEventListener('loadedmetadata',()=>{ if(!audio.paused){} });
-  audio.addEventListener('error',()=>{ if(audio.getAttribute('src')) status.textContent='找不到文件：'+tracks[idx].file; });
+  setSeek(false);
 
-  btn.addEventListener('click',()=>{ audio.paused ? playAudio() : pauseAudio(); });
-  prev.addEventListener('click',()=>{ loadTrack((idx-1+tracks.length)%tracks.length, audio.paused===false); });
-  next.addEventListener('click',()=>{ loadTrack((idx+1)%tracks.length, audio.paused===false); });
+  btn.addEventListener('click',()=>{ audio.paused? playAudio():pauseAudio(); });
+  prev.addEventListener('click',()=>{ loadTrack((idx-1+tracks.length)%tracks.length, !audio.paused); });
+  next.addEventListener('click',()=>{ loadTrack((idx+1)%tracks.length, !audio.paused); });
+  listBtn.addEventListener('click',(e)=>{ e.stopPropagation(); plPanel.classList.toggle('show'); lyricsBox.classList.remove('show'); });
+  lyricBtn.addEventListener('click',(e)=>{ e.stopPropagation(); lyricsBox.classList.toggle('show'); plPanel.classList.remove('show'); if(lyricsBox.classList.contains('show')) syncLyric(); });
+  document.addEventListener('click',(e)=>{ if(!plPanel.contains(e.target)&&!listBtn.contains(e.target)) plPanel.classList.remove('show'); if(!lyricsBox.contains(e.target)&&!lyricBtn.contains(e.target)) lyricsBox.classList.remove('show'); });
 
   audio.addEventListener('timeupdate',()=>{
     if(audio.duration){
-      seek.value = (audio.currentTime/audio.duration*100).toFixed(1);
-      pTime.textContent = fmt(audio.currentTime)+' / '+fmt(audio.duration);
+      seek.value=(audio.currentTime/audio.duration*100).toFixed(1);
+      pTime.textContent=mmss(audio.currentTime)+' / '+mmss(audio.duration);
+      if(!audio.paused && lyricsBox.classList.contains('show')) syncLyric();
     }
   });
   audio.addEventListener('ended',()=>{ loadTrack((idx+1)%tracks.length, true); });
+  audio.addEventListener('error',()=>{ if(audio.getAttribute('src')) status.textContent='找不到文件：'+tracks[idx].file; });
+  seek.addEventListener('input',()=>{ if(audio.duration) audio.currentTime=seek.value/100*audio.duration; });
 
-  seek.addEventListener('input',()=>{
-    if(audio.duration) audio.currentTime = seek.value/100*audio.duration;
-  });
+  // 自动播放：加载后尝试播放；若被浏览器拦截，则用户任意点击时立即播放一次
+  const tryAuto=()=>{ audio.play().then(()=>{ btn.textContent='⏸'; btn.classList.add('playing'); status.textContent='正在自动播放 · '+tracks[idx].title; }).catch(()=>{}); };
+  setTimeout(tryAuto,600);
+  document.addEventListener('click',function once(){
+    if(audio.paused){ tryAuto(); }
+    document.removeEventListener('click',once);
+  },{capture:true});
 })();
 </script>
 </body>
