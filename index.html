@@ -366,40 +366,33 @@
   }
   function drawTrain(g){
     g.save();
-    const ty = H-92;  // 电车顶部(车底压在近轨 H-42)
-    const tw=180, th=46;
+    const ty = H-88;  // 电车顶部（车身跨在轨道上方，贴近最初造型）
+    const tw=170, th=44;
     const x=trainX;
     // 车底阴影
-    g.fillStyle='rgba(0,0,0,.14)';
-    g.beginPath(); g.ellipse(x+tw/2, ty+th+5, tw*.55, 6, 0,0,Math.PI*2); g.fill();
+    g.fillStyle='rgba(0,0,0,.12)';
+    g.beginPath(); g.ellipse(x+tw/2, ty+th+6, tw*.55, 6, 0,0,Math.PI*2); g.fill();
     // 车身
     const bodyGrd=g.createLinearGradient(0,ty,0,ty+th);
     bodyGrd.addColorStop(0,'#fff'); bodyGrd.addColorStop(1,'#e8e6ef');
     g.fillStyle=bodyGrd; g.strokeStyle='#9a9aa8'; g.lineWidth=2;
-    roundRect(g,x,ty,tw,th,12); g.fill(); g.stroke();
+    roundRect(g,x,ty,tw,th,10); g.fill(); g.stroke();
     // 粉色色带
     g.fillStyle='#ff8fb0';
-    g.fillRect(x+7, ty+8, tw-14, 9);
+    g.fillRect(x+6, ty+8, tw-12, 8);
     // 车顶
-    g.fillStyle='#cfccdd'; roundRect(g,x+9,ty-10,tw-18,10,5); g.fill();
+    g.fillStyle='#cfccdd'; roundRect(g,x+8,ty-8,tw-16,8,4); g.fill();
     // 车窗(淡蓝)
     g.fillStyle='#bfe8f5';
     for(let i=0;i<4;i++){
-      roundRect(g,x+15+i*42, ty+20, 33, 15, 6); g.fill();
+      roundRect(g,x+14+i*40, ty+20, 30, 14, 5); g.fill();
     }
     // 车头灯
     g.fillStyle='#fff2b0';
-    g.beginPath(); g.arc(x+tw-10, ty+th/2, 5.5, 0, Math.PI*2); g.fill();
-    // 车轮(两对，压在轨道上)
-    const ry = H-42;
-    g.fillStyle='#3a3a46';
-    [[x+34,x+62],[x+110,x+138]].forEach(w=>{
-      [w[0],w[1]].forEach(cx=>{
-        g.beginPath(); g.arc(cx, ry, 8, 0, Math.PI*2); g.fill();
-        g.fillStyle='#8a8894'; g.beginPath(); g.arc(cx, ry, 3, 0, Math.PI*2); g.fill();
-        g.fillStyle='#3a3a46';
-      });
-    });
+    g.beginPath(); g.arc(x+tw-9, ty+th/2, 5, 0, Math.PI*2); g.fill();
+    // 车头小装饰(橙色灯) —— 简洁还原最初观感
+    g.fillStyle='#ffb0a0';
+    g.beginPath(); g.arc(x+6, ty+6, 3.5, 0, Math.PI*2); g.fill();
     g.restore();
   }
   function drawPetals(g,t){
