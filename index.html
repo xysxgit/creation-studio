@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>创作助手 · 剧本工坊 — 下载与说明</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<style>
+  :root{
+    --bg:#f6f7fb; --bg2:#ffffff; --ink:#2b2b3a; --sub:#6b6b80;
+    --line:#e7e8f0; --ac1:#7c5cff; --ac2:#ff7a59;
+    --card:#ffffff; --shadow:0 12px 34px rgba(60,60,120,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(160deg,#eef0fb 0%,#f6f7fb 40%,#fdf0ea 100%);
+    color:var(--ink); min-height:100vh; line-height:1.7;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+  /* hero */
+  .hero{text-align:center;padding:38px 16px 28px}
+  .app-logo{width:96px;height:96px;border-radius:24px;margin:0 auto 14px;object-fit:contain;
+    background:#fff;box-shadow:var(--shadow);padding:8px;display:block}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
+    background:linear-gradient(90deg,var(--ac1),var(--ac2));color:#fff;padding:4px 14px;border-radius:999px;margin-bottom:16px}
+  .badge::before{content:"";width:8px;height:8px;border-radius:50%;background:#d7ffb0;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
+  h1{font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:.5px;margin-bottom:6px}
+  .tagline{color:var(--sub);font-size:clamp(14px,3vw,17px);max-width:640px;margin:6px auto 22px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px}
+  .meta span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:13px;color:var(--sub)}
+  .meta b{color:var(--ink)}
+  /* download */
+  .dlbox{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 24px;
+    box-shadow:var(--shadow);text-align:center;margin-bottom:36px}
+  .dl-btn{display:inline-flex;align-items:center;gap:10px;font-size:18px;font-weight:700;
+    background:linear-gradient(90deg,var(--ac1),var(--ac2));color:#fff;padding:15px 40px;border-radius:999px;
+    text-decoration:none;box-shadow:0 10px 24px rgba(124,92,255,.4);transition:transform .18s,box-shadow .18s}
+  .dl-btn:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(124,92,255,.5)}
+  .dl-btn .ic{font-size:22px}
+  .dl-note{margin-top:14px;font-size:13px;color:var(--sub)}
+  .dl-note code{background:#eef0f7;padding:2px 8px;border-radius:6px;font-size:12px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;text-align:left}
+  .step{font-size:13px;color:var(--sub)}
+  .step b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+  .step .n{display:inline-flex;width:22px;height:22px;border-radius:50%;background:#eef0fb;color:var(--ac1);
+    font-weight:700;align-items:center;justify-content:center;margin-right:6px}
+  /* section */
+  section{margin-bottom:38px}
+  h2{font-size:24px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:5px;height:22px;border-radius:3px;background:linear-gradient(var(--ac1),var(--ac2))}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 6px 18px rgba(60,60,120,.06);transition:transform .2s}
+  .card:hover{transform:translateY(-4px)}
+  .card .emoji{font-size:26px;margin-bottom:10px}
+  .card h3{font-size:17px;margin-bottom:6px}
+  .card p{font-size:13.5px;color:var(--sub)}
+  /* changelog */
+  .log{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:6px 22px}
+  .log-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .log-item:last-child{border-bottom:0}
+  .log-ver{flex:0 0 66px;font-weight:800;color:var(--ac1);font-size:15px}
+  .log-desc{font-size:13.5px;color:var(--ink)}
+  .log-desc span{color:var(--sub);font-size:12px;display:block;margin-top:2px}
+  /* repo */
+  .repo{background:linear-gradient(120deg,#f3f1ff,#fff2ec);border:1px solid var(--line);border-radius:18px;padding:22px}
+  .repo p{font-size:14px;color:var(--sub);margin-bottom:8px}
+  .repo code{background:#fff;border:1px solid var(--line);padding:3px 10px;border-radius:8px;font-size:12.5px;color:var(--ink)}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:34px}
+  @media(max-width:560px){ .steps{grid-template-columns:1fr} .dl-btn{width:100%;padding:15px 0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="app-logo" src="icon-512.png" alt="创作助手图标" />
+    <div class="badge">最新版 · 安卓应用</div>
+    <h1>创作助手 · 剧本工坊</h1>
+    <p class="tagline">画板式剧本创作工具 —— 在无限画布上自由组织人物 / 剧情 / 线索，支持小说、轻小说、RPG、Galgame、影视脚本。可单人创作，也可局域网多人协同，云端多版本备份。</p>
+    <div class="meta">
+      <span>版本 <b>v1.23</b></span>
+      <span>安装包 <b>4.2 MB</b></span>
+      <span>类型 <b>创作工具</b></span>
+      <span>系统 <b>Android 7.0+</b></span>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD -->
+  <div class="dlbox">
+    <a class="dl-btn" href="creation-studio-v1.23.apk" download>
+      <span class="ic">⬇</span> 下载安装包 v1.23
+    </a>
+    <div class="dl-note">版本号 <b>v1.23</b> · versionCode 24 · 大小 4.2 MB</div>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><b>下载 APK</b>点上方按钮，将安装包保存到手机</div>
+      <div class="step"><span class="n">2</span><b>允许安装</b>首次安装需在系统里开启「允许安装未知来源应用」</div>
+      <div class="step"><span class="n">3</span><b>开始创作</b>打开脚本工坊，新建项目即可开写</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section>
+    <h2>核心能力</h2>
+    <div class="grid">
+      <div class="card"><div class="emoji">🖼️</div><h3>画板式创作</h3><p>卡片 + 自由连线 + 编组分区。在无限画布上把人物、剧情、伏笔铺开、连接、梳理结构。</p></div>
+      <div class="card"><div class="emoji">📚</div><h3>多体裁剧本</h3><p>面向小说、轻小说、RPG、Galgame、影视脚本，卷 / 章 / 卡片分层组织，随时切换。</p></div>
+      <div class="card"><div class="emoji">✍️</div><h3>富文本排版</h3><p>内置专业富文本编辑器：标题、表格、图片、链接、高亮、下划线、颜色与字号自由设置。</p></div>
+      <div class="card"><div class="emoji">🌐</div><h3>局域网协同</h3><p>同一局域网内多人实时共同创作，思维同步、实时连线、协作不冲突。</p></div>
+      <div class="card"><div class="emoji">☁️</div><h3>云端多版本备份</h3><p>WebDAV 同步（坚果云 / Nextcloud / Box / AList 等预设），自动保留最近 30 份快照，可一键恢复任意版本。</p></div>
+      <div class="card"><div class="emoji">🤖</div><h3>AI 辅助创作</h3><p>AI 替换 / 追加正文自动生成历史记录，可回退任意版本；修改前自动把原稿存进正文回收站，安全可找回。</p></div>
+      <div class="card"><div class="emoji">📱</div><h3>原生移动端</h3><p>基于 Capacitor 构建，横竖屏自适应，触控友好，数据本地存储、离线可用。</p></div>
+      <div class="card"><div class="emoji">🔒</div><h3>数据安全</h3><p>删除进回收站可恢复；正文自动备份；全程本地优先，你的作品始终在你手里。</p></div>
+    </div>
+  </section>
+
+  <!-- CHANGELOG -->
+  <section>
+    <h2>最近更新</h2>
+    <div class="log">
+      <div class="log-item"><div class="log-ver">v1.23</div><div class="log-desc">云同步手机端直接可用（绕过 WebView CORS）；API 转发增加 CORS 预检；修复新建卡片标题重复键警告。<span>2024 · 最新版</span></div></div>
+      <div class="log-item"><div class="log-ver">v1.22</div><div class="log-desc">新增 AI 生成历史面板：记录每次 AI 替换 / 追加正文，可一键恢复回退到任意 AI 版本（恢复前自动备份）。<span>侧栏新增 AI 历史入口</span></div></div>
+      <div class="log-item"><div class="log-ver">v1.21</div><div class="log-desc">AI 安全机制——替换 / 追加正文前自动备份到正文回收站；AI 修改可撤销；云盘同步升级多版本快照 + 恢复前自动备份。<span>自动保留最近 30 份快照</span></div></div>
+      <div class="log-item"><div class="log-ver">v1.20</div><div class="log-desc">UI / UX 风格统一：新增圆角、遮罩、选中态设计 token，按钮 / 菜单 / 弹层 / 文本统一样式。<span>视觉一致性全面提升</span></div></div>
+      <div class="log-item"><div class="log-ver">v1.19</div><div class="log-desc">独立「正文回收站」，删除卷 / 章进回收站可恢复；卷头菜单改为 popup，修复点按无反应；排查多 deleteCards 互串。<span>正文单独回收，更安全</span></div></div>
+    </div>
+  </section>
+
+  <!-- REPO -->
+  <section>
+    <h2>仓库与回滚</h2>
+    <div class="repo">
+      <p>项目使用 Git 管理，云端私有仓库保存全部历史版本，并有备份点标签。</p>
+      <p>远程仓库：<code>https://gitee.com/xysxg/creation-assistant.git</code></p>
+      <p>回滚备份点：<code>0712</code>（对应本版 v1.23，commit 106e463）</p>
+    </div>
+  </section>
+
+  <footer>创作助手 · 剧本工坊 — 下载与说明 · 版本 v1.23 · 本页为静态说明页，可离线打开</footer>
+</div>
+</body>
+</html>
