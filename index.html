@@ -66,8 +66,9 @@
   .meta b{color:var(--ink)}
   /* download */
   .dlbox{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:30px 24px;
-    box-shadow:var(--shadow);text-align:center;margin-bottom:36px}
-  .dl-btn{display:inline-flex;align-items:center;gap:10px;font-size:18px;font-weight:700;
+    box-shadow:var(--shadow);text-align:center;margin-bottom:36px;
+    display:flex;flex-direction:column;align-items:center}
+  .dl-btn{display:flex;align-items:center;justify-content:center;gap:10px;font-size:18px;font-weight:700;
     background:linear-gradient(90deg,var(--ac1),var(--ac2));color:#fff;padding:15px 40px;border-radius:999px;
     text-decoration:none;box-shadow:0 10px 24px rgba(124,92,255,.4);transition:transform .18s,box-shadow .18s}
   .dl-btn:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(124,92,255,.5)}
@@ -599,7 +600,8 @@
       '我就是你'
     ]
   }];
-  let idx=0;
+  // 每次进入页面，随机挑选一首曲目作为初始播放
+  let idx = Math.floor(Math.random() * Math.max(1, tracks.length));
 
   function fmt(s){ if(!isFinite(s)) return '0:00'; const m=Math.floor(s/60), ss=Math.floor(s%60); return m+':'+(ss<10?'0':'')+ss; }
   function mmss(t){ return fmt(t); }
