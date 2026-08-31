@@ -274,21 +274,39 @@
   }
   function drawRail(g){
     g.save();
-    // 沙滩/路基
-    g.fillStyle='#e8d9c4';
-    g.fillRect(0,H-52,W,52);
-    g.fillStyle='#d8c4ab';
-    g.fillRect(0,H-30,W,30);
-    // 铁轨
-    const gy1=H-36, gy2=H-46;
-    g.strokeStyle='#8a7a66'; g.lineWidth=3;
+    // 浅色沙滩
+    g.fillStyle='#f0ddc0';
+    g.fillRect(0,H-72,W,72);
+    g.fillStyle='#e4cca6';
+    g.fillRect(0,H-42,W,42);
+    // 道砟碎石带
+    g.fillStyle='#cebfa7';
+    g.fillRect(0,H-34,W,20);
+    // 轨道黑色垫层(衬出双轨)
+    const gy1=H-46, gy2=H-62;
+    g.fillStyle='rgba(60,52,44,.28)';
+    g.fillRect(0,gy2-4,W,gy1-gy2+8);
+    // 钢轨(粗深)
+    g.strokeStyle='#5f5648'; g.lineWidth=6;
     g.beginPath(); g.moveTo(0,gy1); g.lineTo(W,gy1); g.stroke();
     g.beginPath(); g.moveTo(0,gy2); g.lineTo(W,gy2); g.stroke();
-    // 枕木
-    g.strokeStyle='rgba(140,120,95,.7)'; g.lineWidth=2;
-    for(let x=-10;x<W+10;x+=34){
+    // 钢轨金属高光
+    g.strokeStyle='rgba(255,255,255,.6)'; g.lineWidth=2;
+    g.beginPath(); g.moveTo(0,gy1-2); g.lineTo(W,gy1-2); g.stroke();
+    g.beginPath(); g.moveTo(0,gy2-2); g.lineTo(W,gy2-2); g.stroke();
+    // 密集枕木
+    g.strokeStyle='rgba(110,88,64,.9)'; g.lineWidth=3.5;
+    for(let x=-8;x<W+12;x+=24){
       g.beginPath(); g.moveTo(x,gy2-5); g.lineTo(x,gy1+5); g.stroke();
     }
+    // 站台名牌
+    const bx=W*0.06, by=H-92;
+    g.fillStyle='rgba(255,255,255,.92)';
+    roundRect(g,bx,by,158,32,9); g.fill();
+    g.strokeStyle='#dd93ad'; g.lineWidth=2;
+    roundRect(g,bx,by,158,32,9); g.stroke();
+    g.fillStyle='#b7738c'; g.font='bold 15px sans-serif'; g.textAlign='center';
+    g.fillText('海之电车 · 樱见站', bx+79, by+23);
     g.restore();
   }
   function roundRect(g,x,y,w,h,r){
@@ -298,30 +316,40 @@
   }
   function drawTrain(g){
     g.save();
-    const ty = H-56;  // 电车y
-    const tw=170, th=44;
+    const ty = H-92;  // 电车顶部(车底压在近轨 H-42)
+    const tw=180, th=46;
     const x=trainX;
-    // 车轮阴影
-    g.fillStyle='rgba(0,0,0,.12)';
-    g.beginPath(); g.ellipse(x+tw/2, ty+th+6, tw*.55, 6, 0,0,Math.PI*2); g.fill();
+    // 车底阴影
+    g.fillStyle='rgba(0,0,0,.14)';
+    g.beginPath(); g.ellipse(x+tw/2, ty+th+5, tw*.55, 6, 0,0,Math.PI*2); g.fill();
     // 车身
     const bodyGrd=g.createLinearGradient(0,ty,0,ty+th);
     bodyGrd.addColorStop(0,'#fff'); bodyGrd.addColorStop(1,'#e8e6ef');
     g.fillStyle=bodyGrd; g.strokeStyle='#9a9aa8'; g.lineWidth=2;
-    roundRect(g,x,ty,tw,th,10); g.fill(); g.stroke();
-    // 色带
+    roundRect(g,x,ty,tw,th,12); g.fill(); g.stroke();
+    // 粉色色带
     g.fillStyle='#ff8fb0';
-    g.fillRect(x+6, ty+8, tw-12, 8);
+    g.fillRect(x+7, ty+8, tw-14, 9);
     // 车顶
-    g.fillStyle='#cfccdd'; roundRect(g,x+8,ty-8,tw-16,8,4); g.fill();
-    // 车窗
+    g.fillStyle='#cfccdd'; roundRect(g,x+9,ty-10,tw-18,10,5); g.fill();
+    // 车窗(淡蓝)
     g.fillStyle='#bfe8f5';
     for(let i=0;i<4;i++){
-      roundRect(g,x+14+i*40, ty+20, 30, 14, 5); g.fill();
+      roundRect(g,x+15+i*42, ty+20, 33, 15, 6); g.fill();
     }
     // 车头灯
     g.fillStyle='#fff2b0';
-    g.beginPath(); g.arc(x+tw-9, ty+th/2, 5, 0, Math.PI*2); g.fill();
+    g.beginPath(); g.arc(x+tw-10, ty+th/2, 5.5, 0, Math.PI*2); g.fill();
+    // 车轮(两对，压在轨道上)
+    const ry = H-42;
+    g.fillStyle='#3a3a46';
+    [[x+34,x+62],[x+110,x+138]].forEach(w=>{
+      [w[0],w[1]].forEach(cx=>{
+        g.beginPath(); g.arc(cx, ry, 8, 0, Math.PI*2); g.fill();
+        g.fillStyle='#8a8894'; g.beginPath(); g.arc(cx, ry, 3, 0, Math.PI*2); g.fill();
+        g.fillStyle='#3a3a46';
+      });
+    });
     g.restore();
   }
   function drawPetals(g,t){
