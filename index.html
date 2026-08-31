@@ -635,11 +635,21 @@
   }
   function loadTrack(i,autoplay){ idx=i; setSeek(autoplay); }
   function playAudio(){
+    if(audio.muted) audio.muted=false;  // 若因兜底被静音，先恢复
     audio.play().then(()=>{
       btn.textContent='⏸'; btn.classList.add('playing');
       status.textContent='正在播放 · '+tracks[idx].title;
     }).catch(()=>{
-      status.textContent='点击“播放”开始'; btn.textContent='▶';
+      // 自动播放被拦截时：静音试播一次，成功则解除静音
+      audio.muted=true;
+      audio.play().then(()=>{
+        audio.muted=false;
+        btn.textContent='⏸'; btn.classList.add('playing');
+        status.textContent='正在播放 · '+tracks[idx].title;
+      }).catch(()=>{
+        audio.muted=false;
+        status.textContent='点击“播放”开始'; btn.textContent='▶';
+      });
     });
   }
   function pauseAudio(){
@@ -647,8 +657,8 @@
     status.textContent='已暂停 · 点击继续';
   }
 
-  // 初始化第一首
-  setSeek(false);
+  // 初始化：进入页面自动播放随机曲目
+  setSeek(true);
 
   btn.addEventListener('click',()=>{ audio.paused? playAudio():pauseAudio(); });
   prev.addEventListener('click',()=>{ loadTrack((idx-1+tracks.length)%tracks.length, !audio.paused); });
