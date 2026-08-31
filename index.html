@@ -88,8 +88,17 @@
   .pinfo{display:flex;flex-direction:column;line-height:1.25;min-width:0}
   .ptitle{font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .pstatus{font-size:11.5px;color:var(--sub)}
-  #seek{width:140px}
+  #seek{width:130px;accent-color:var(--ac1)}
+  .navBtn{width:34px;height:34px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;
+    background:#f0edfa;color:var(--ac1);font-size:14px;display:flex;align-items:center;justify-content:center;
+    transition:transform .15s,background .15s}
+  .navBtn:hover{transform:scale(1.1);background:#e6e1f7}
+  .ptime{font-size:11.5px;color:var(--sub);font-variant-numeric:tabular-nums;white-space:nowrap}
   .pnote{font-size:11px;color:var(--sub);white-space:nowrap}
+  .playlist{display:flex;flex-direction:column;min-width:0}
+  .pl-item{font-size:11.5px;color:var(--sub);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:2px 6px;border-radius:6px}
+  .pl-item:hover{background:#efeafc;color:var(--ac1)}
+  .pl-item.active{color:var(--ac1);font-weight:700;background:#efeafc}
 
   @media(max-width:560px){ .steps{grid-template-columns:1fr} .dl-btn{width:100%;padding:15px 0} #player{width:calc(100% - 24px);justify-content:center} .pnote{display:none} #seek{width:120px} }
 </style>
@@ -169,14 +178,17 @@
 
 <!-- 音乐播放器 -->
 <div id="player">
+  <button id="prevBtn" class="navBtn" title="上一首">⏮</button>
   <button id="playBtn" title="播放 / 暂停">▶</button>
   <div class="pinfo">
-    <div class="ptitle">一见如故 · 许嵩</div>
-    <div class="pstatus" id="pStatus">未加载背景音乐（bgm.mp3）</div>
+    <div class="ptitle" id="pTitle">一见如故 · 许嵩</div>
+    <div class="pstatus" id="pStatus">点击开始播放</div>
   </div>
   <input id="seek" type="range" min="0" max="100" value="0" step="1" />
-  <div class="pnote">🔊 点击按钮播放</div>
-  <audio id="audio" src="bgm.mp3" loop preload="auto"></audio>
+  <span class="ptime" id="pTime">0:00 / 0:00</span>
+  <button id="nextBtn" class="navBtn" title="下一首">⏭</button>
+  <div class="playlist" id="playlist"></div>
+  <audio id="audio" preload="auto"></audio>
 </div>
 
 <script>
@@ -396,37 +408,76 @@
   tick();
 })();
 
-/* ============ 音乐播放器 ============ */
+/* ============ 音乐播放器（三首曲目列表） ============ */
 (function(){
   const audio=document.getElementById('audio');
   const btn=document.getElementById('playBtn');
+  const prev=document.getElementById('prevBtn');
+  const next=document.getElementById('nextBtn');
   const seek=document.getElementById('seek');
   const status=document.getElementById('pStatus');
+  const pTitle=document.getElementById('pTitle');
+  const pTime=document.getElementById('pTime');
+  const playlistEl=document.getElementById('playlist');
 
-  function fmt(s){ const m=Math.floor(s/60), ss=Math.floor(s%60); return m+':'+(ss<10?'0':'')+ss; }
+  // 曲目列表（与网站目录下文件名对应）
+  const tracks = [
+    { title:'一见如故', artist:'许嵩', file:'一见如故-许嵩.mp3' },
+    { title:'心安之地', artist:'许嵩', file:'心安之地-许嵩.mp3' },
+    { title:'忽略不计', artist:'许嵩', file:'忽略不计-许嵩.mp3' }
+  ];
+  let idx = 0;
 
-  audio.addEventListener('loadedmetadata',()=>{ status.textContent='持续时间 '+fmt(audio.duration)+' · 点击播放'; });
-  audio.addEventListener('canplay',()=>{ if(statusElEmpty()) status.textContent='点击播放「一见如故」'; });
-  audio.addEventListener('error',()=>{ status.textContent='未找到音乐文件（bgm.mp3），请放置后可播放'; });
+  function fmt(s){ if(!isFinite(s)) return '0:00'; const m=Math.floor(s/60), ss=Math.floor(s%60); return m+':'+(ss<10?'0':'')+ss; }
 
-  function statusElEmpty(){ const s=status.textContent; return s.indexOf('未加载')>=0 || s.indexOf('找不到')>=0 || s.indexOf('点击')>=0; }
+  function renderList(){
+    playlistEl.innerHTML='';
+    tracks.forEach((t,i)=>{
+      const el=document.createElement('div');
+      el.className='pl-item'+(i===idx?' active':'');
+      el.textContent=(i+1)+'. '+t.title;
+      el.onclick=()=>{ loadTrack(i,true); };
+      playlistEl.appendChild(el);
+    });
+  }
+  function loadTrack(i, autoplay){
+    idx = i;
+    audio.src = tracks[i].file;
+    pTitle.textContent = tracks[i].title + ' · ' + tracks[i].artist;
+    status.textContent = autoplay ? '加载中…' : '点击开始播放';
+    renderList();
+    if(autoplay){ playAudio(); }
+  }
+  function playAudio(){
+    audio.play().then(()=>{
+      btn.textContent='⏸';
+      status.textContent='正在播放 · '+tracks[idx].title;
+      btn.classList.add('playing');
+    }).catch(e=>{ status.textContent='点击播放（先点一下页面）'; });
+  }
+  function pauseAudio(){
+    audio.pause();
+    btn.textContent='▶'; btn.classList.remove('playing');
+    status.textContent='已暂停 · 点击继续';
+  }
 
-  btn.addEventListener('click',()=>{
-    if(audio.paused){
-      audio.play().then(()=>{
-        btn.textContent='⏸'; btn.classList.add('playing');
-        status.textContent='正在播放 · 许嵩《一见如故》';
-      }).catch(e=>{ status.textContent='无法播放：'+(e.message||''); });
-    } else {
-      audio.pause();
-      btn.textContent='▶'; btn.classList.remove('playing');
-      status.textContent='已暂停 · 点击继续';
-    }
-  });
+  // 初始化第一首
+  loadTrack(0,false);
+  audio.addEventListener('loadedmetadata',()=>{ if(!audio.paused){} });
+  audio.addEventListener('error',()=>{ if(audio.getAttribute('src')) status.textContent='找不到文件：'+tracks[idx].file; });
+
+  btn.addEventListener('click',()=>{ audio.paused ? playAudio() : pauseAudio(); });
+  prev.addEventListener('click',()=>{ loadTrack((idx-1+tracks.length)%tracks.length, audio.paused===false); });
+  next.addEventListener('click',()=>{ loadTrack((idx+1)%tracks.length, audio.paused===false); });
 
   audio.addEventListener('timeupdate',()=>{
-    if(audio.duration) seek.value = (audio.currentTime/audio.duration*100).toFixed(1);
+    if(audio.duration){
+      seek.value = (audio.currentTime/audio.duration*100).toFixed(1);
+      pTime.textContent = fmt(audio.currentTime)+' / '+fmt(audio.duration);
+    }
   });
+  audio.addEventListener('ended',()=>{ loadTrack((idx+1)%tracks.length, true); });
+
   seek.addEventListener('input',()=>{
     if(audio.duration) audio.currentTime = seek.value/100*audio.duration;
   });
