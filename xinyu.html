@@ -49,17 +49,14 @@
         body {
             font-family: var(--font);
             min-height: 100vh;
-            /* 优化：用 will-change 提示GPU加速，减少重绘开销 */
+            /* 优化：静态渐变背景，避免 background-position 大范围动画在移动端持续重绘导致卡顿 */
             background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
-            background-size: 250% 250%;
-            animation: bgShift 30s infinite alternate;
-            will-change: background-position;
+            transition: background 0.8s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             -webkit-tap-highlight-color: transparent;
             -webkit-font-smoothing: antialiased;
-            transition: background 0.8s ease;
             overflow-y: auto;
             overflow-x: hidden;
         }
