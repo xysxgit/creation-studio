@@ -217,6 +217,11 @@
   #eggTip{ bottom: calc(170px + env(safe-area-inset-bottom, 0px)); }
 }
 
+
+  /* 最近更新只显示最近 10 条，可展开全部 */
+  .log .log-item.log-hidden{display:none !important;}
+  .log-more{margin:14px auto 0;display:block;background:none;border:1px dashed var(--border-dash);color:var(--sub);padding:8px 14px;border-radius:12px;font-size:13px;cursor:pointer;text-align:center;}
+  .log-more:hover{color:var(--ac1);border-color:var(--ac1);}
 </style>
 </head>
 <body>
@@ -240,8 +245,8 @@
 
   <!-- DOWNLOAD -->
   <div class="dlbox">
-    <a class="dl-btn" href="creation-studio-v1.41.apk" download>
-      <span class="ic">⬇</span> 下载安装包 v1.41
+    <a class="dl-btn" href="creation-studio-v1.42.apk" download>
+      <span class="ic">⬇</span> 下载安装包 v1.42
     </a>
     <div class="dl-note">版本号 <b>v1.41</b> · 大小 4.3 MB</div>
     <div class="steps">
@@ -270,7 +275,7 @@
   <section>
     <h2>最近更新</h2>
     <div class="log">
-      <div class="log-item"><div class="log-ver">v1.41</div><div class="log-desc">右侧悬浮工具栏随可用上下空间自动伸缩变短、并配细滚动条（内容多时滚动）；移除了多余的折叠按钮；横屏下「最近项目」卡片缩小为统一小卡，不再过大。<span>2026 · 最新版</span></div></div><div class="log-item"><div class="log-ver">v1.39</div><div class="log-desc">修复进入画布后首次「双击空白新建便签卡」无反应、需多次/稍后才生效的问题：原生双击不再依赖此前点击记录，首次双击即可新建。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.38</div><div class="log-desc">修复右悬浮栏「页面」切换菜单被工具栏滚动容器裁掉、点击无效的问题（页面菜单改为浮层弹出）；界面引入随分辨率/画面比例缩放的 UI 自适应基座，按钮、工具栏、菜单等关键控件随屏幕缩放，整体位置固定、可滚动。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.37</div><div class="log-desc">右侧悬浮工具栏移出画布容器并固定定位：触屏可上下滚动，内容较多不再被裁、也不遮住右下角工具浮标。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.36</div><div class="log-desc">右侧悬浮工具栏适配滚动条：内容较多不再把底部按钮挤出屏幕，可上下滑动查看。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.35</div><div class="log-desc">卡片切换改为最近项目卡片式双面翻转（仅内容翻面、无镜像闪烁、更顺滑）；便签卡/图片卡切换图标改为显示当前类型；修复在部分安卓 WebView 上新建图片卡无法弹出图片选择器的问题；编组名支持长按弹出编组选项；空白长按菜单移除「新建图片卡」冗余项；长按选项弹窗适配滚动条、不再裁掉底部选项。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.32</div><div class="log-desc">修复已编组卡片可被重复编组的问题；「＋新建卡片」精确落到画面中心；便签卡↔图片卡支持一键翻转转换。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.30</div><div class="log-desc">画布新增「＋ 新建卡片」按钮（不再依赖双击，适配荣耀等全机型）；选项弹窗加安全区偏移与滚动自适应，弹窗不再裁掉底部选项；官网对大屏（6.78 英寸 20:9）与横屏做深度自适应。<span>2026</span></div></div>
+      <div class="log-item"><div class="log-ver">v1.42</div><div class="log-desc">横屏下「最近项目」卡片过大问题进一步修复：将卡片收窄规则扩展到平板/大屏等更宽横屏（直至 2000px）也生效，避免卡片被拉得过宽；右侧悬浮栏改为「限制高度上限」而非撑满——内容够少时按内容自适应，空间不足才压缩并出现细滚动条；页面数量很多时「新建页面」按钮固定在页面菜单底部、始终可见可点。<span>2026 · 最新版</span></div></div><div class="log-item"><div class="log-ver">v1.41</div><div class="log-desc">右侧悬浮工具栏随可用上下空间自动伸缩变短、并配细滚动条（内容多时滚动）；移除了多余的折叠按钮；横屏下「最近项目」卡片缩小为统一小卡，不再过大。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.39</div><div class="log-desc">修复进入画布后首次「双击空白新建便签卡」无反应、需多次/稍后才生效的问题：原生双击不再依赖此前点击记录，首次双击即可新建。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.38</div><div class="log-desc">修复右悬浮栏「页面」切换菜单被工具栏滚动容器裁掉、点击无效的问题（页面菜单改为浮层弹出）；界面引入随分辨率/画面比例缩放的 UI 自适应基座，按钮、工具栏、菜单等关键控件随屏幕缩放，整体位置固定、可滚动。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.37</div><div class="log-desc">右侧悬浮工具栏移出画布容器并固定定位：触屏可上下滚动，内容较多不再被裁、也不遮住右下角工具浮标。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.36</div><div class="log-desc">右侧悬浮工具栏适配滚动条：内容较多不再把底部按钮挤出屏幕，可上下滑动查看。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.35</div><div class="log-desc">卡片切换改为最近项目卡片式双面翻转（仅内容翻面、无镜像闪烁、更顺滑）；便签卡/图片卡切换图标改为显示当前类型；修复在部分安卓 WebView 上新建图片卡无法弹出图片选择器的问题；编组名支持长按弹出编组选项；空白长按菜单移除「新建图片卡」冗余项；长按选项弹窗适配滚动条、不再裁掉底部选项。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.32</div><div class="log-desc">修复已编组卡片可被重复编组的问题；「＋新建卡片」精确落到画面中心；便签卡↔图片卡支持一键翻转转换。<span>2026</span></div></div><div class="log-item"><div class="log-ver">v1.30</div><div class="log-desc">画布新增「＋ 新建卡片」按钮（不再依赖双击，适配荣耀等全机型）；选项弹窗加安全区偏移与滚动自适应，弹窗不再裁掉底部选项；官网对大屏（6.78 英寸 20:9）与横屏做深度自适应。<span>2026</span></div></div>
       <div class="log-item"><div class="log-ver">v1.29</div><div class="log-desc">最新版本，在 v1.23 基础上优化体验并修复细节问题。<span>2026</span></div></div>
       <div class="log-item"><div class="log-ver">v1.23</div><div class="log-desc">云同步手机端直接可用（绕过 WebView CORS）；API 转发增加 CORS 预检；修复新建卡片标题重复键警告。<span>2024</span></div></div>
       <div class="log-item"><div class="log-ver">v1.22</div><div class="log-desc">新增 AI 生成历史面板：记录每次 AI 替换 / 追加正文，可一键恢复回退到任意 AI 版本（恢复前自动备份）。<span>侧栏新增 AI 历史入口</span></div></div>
@@ -290,7 +295,7 @@
     </div>
   </section>
 
-  <footer>创作助手 · 剧本工坊 — 下载与说明 · 版本 v1.41 · 本页为静态说明页，可离线打开</footer>
+  <footer>创作助手 · 剧本工坊 — 下载与说明 · 版本 v1.42 · 本页为静态说明页，可离线打开</footer>
 </div>
 
 <!-- 音乐播放器 -->
@@ -768,6 +773,23 @@
   close.addEventListener('click',closeXinyu);
   modal.addEventListener('click',e=>{ if(e.target===modal) closeXinyu(); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('show')) closeXinyu(); });
+})();
+</script>
+
+<script>
+(function(){
+var log=document.querySelector(".log");
+if(!log)return;
+var items=[].slice.call(log.querySelectorAll(".log-item"));
+var MAX=10;
+if(items.length<=MAX)return;
+var extra=items.slice(MAX);
+extra.forEach(function(el){el.classList.add("log-hidden");});
+var btn=document.createElement("button");
+btn.className="log-more";
+btn.textContent="展开全部 "+(items.length-MAX)+" 条历史版本 ▼";
+btn.onclick=function(){extra.forEach(function(el){el.classList.remove("log-hidden");});btn.style.display="none";};
+log.appendChild(btn);
 })();
 </script>
 </body>
