@@ -711,8 +711,8 @@
     status.textContent='已暂停 · 点击继续';
   }
 
-  // 初始化：进入页面自动播放随机曲目
-  setSeek(true);
+  // 初始化：默认不自动播放，由用户手动点「播放」
+  setSeek(false);
 
   btn.addEventListener('click',()=>{ audio.paused? playAudio():pauseAudio(); });
   prev.addEventListener('click',()=>{ loadTrack((idx-1+tracks.length)%tracks.length, !audio.paused); });
@@ -731,13 +731,7 @@
   audio.addEventListener('error',()=>{ if(audio.getAttribute('src')) status.textContent='找不到文件：'+tracks[idx].file; });
   seek.addEventListener('input',()=>{ if(audio.duration) audio.currentTime=seek.value/100*audio.duration; });
 
-  // 自动播放：加载后尝试播放；若被浏览器拦截，则用户任意点击时立即播放一次
-  const tryAuto=()=>{ playAudio('正在自动播放'); };
-  setTimeout(tryAuto,600);
-  document.addEventListener('click',function once(){
-    if(audio.paused){ tryAuto(); }
-    document.removeEventListener('click',once);
-  },{capture:true});
+  // 默认关闭自动播放：不再定时尝试播放，也不在任意点击时自动播放；由用户手动点「播放」
 })();
 
 /* ============ 心屿彩蛋（懒加载 iframe，隔离作用域，关闭即释放） ============ */
