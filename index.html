@@ -411,16 +411,26 @@
     const grd=g.createLinearGradient(0,seaY,0,H);
     grd.addColorStop(0,'#8fd0ee'); grd.addColorStop(1,'#4fa4d6');
     g.fillStyle=grd; g.fillRect(0,seaY,W,H-seaY);
-    // 波浪
-    for(let layer=0; layer<3; layer++){
+    // 阳光波光：海面流动的光斑
+    for(let i=0;i<6;i++){
+      const phase=(i*.18 + t*.06)%1;
+      const gx=phase*W;
+      const gy=seaY+22+(i*14)%(H-seaY-40);
+      const g2=g.createRadialGradient(gx,gy,2,gx,gy,55);
+      g2.addColorStop(0,'rgba(255,255,255,.22)');
+      g2.addColorStop(1,'rgba(255,255,255,0)');
+      g.fillStyle=g2; g.fillRect(gx-58,seaY,116,H-seaY);
+    }
+    // 波浪：多层错位起伏，更明显起伏
+    for(let layer=0; layer<4; layer++){
       g.beginPath();
-      const amp=6+layer*3, y0=seaY+8+layer*16, wl=90+layer*25;
-      for(let x=0;x<=W;x+=6){
-        const y=y0+Math.sin(x/wl*Math.PI*2 + t*.8 + layer)*amp;
+      const amp=9+layer*4, y0=seaY+5+layer*13, wl=78+layer*22;
+      for(let x=0;x<=W;x+=5){
+        const y=y0+Math.sin(x/wl*Math.PI*2 + t*2.4 + layer*1.15)*amp;
         if(x===0)g.moveTo(x,y); else g.lineTo(x,y);
       }
       g.lineTo(W,H); g.lineTo(0,H); g.closePath();
-      g.fillStyle='rgba(255,255,255,'+(0.16-layer*.04)+')';
+      g.fillStyle='rgba(255,255,255,'+(0.2-layer*.035)+')';
       g.fill();
     }
     g.restore();
