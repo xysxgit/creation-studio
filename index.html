@@ -72,7 +72,7 @@
   .dlbox{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:30px 24px;
     box-shadow:var(--shadow);text-align:center;margin-bottom:36px;
     display:flex;flex-direction:column;align-items:center}
-  .dl-btn{display:flex;align-items:center;justify-content:center;gap:10px;font-size:18px;font-weight:700;
+  .dl-btn{display:flex;align-items:center;justify-content:center;gap:10px;font-size:18px;font-weight:700;width:100%;box-sizing:border-box;
     background:linear-gradient(90deg,var(--ac1),var(--ac2));color:#fff;padding:15px 40px;border-radius:999px;
     text-decoration:none;box-shadow:0 10px 24px rgba(124,92,255,.4);transition:transform .18s,box-shadow .18s}
   .dl-btn:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(124,92,255,.5)}
@@ -84,7 +84,7 @@
   .dl-btn.alt:hover{box-shadow:0 16px 32px rgba(43,43,58,.45)}
   .dlbox .badge{margin-bottom:16px}
   .dl-btn + .dl-btn{margin-top:12px}
-  .dl-btn.ghost{background:transparent;color:var(--ac1);border:2px solid var(--ac1);box-shadow:none;font-size:16px;padding:12px 30px}
+  .dl-btn.ghost{background:transparent;color:var(--ac1);border:2px solid var(--ac1);box-shadow:none;font-size:17px;padding:14px 0;width:100%}
   .dl-btn.ghost:hover{background:var(--ac1);color:#fff;box-shadow:0 12px 26px rgba(124,92,255,.35)}
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;text-align:left}
   .step{font-size:13px;color:var(--sub)}
@@ -253,8 +253,9 @@
 
   <!-- DOWNLOAD -->
   <div class="dlbox">
+    <div class="badge">Android 版 · 安卓应用</div>
     <a class="dl-btn" href="creation-studio-a16-native.apk" download>
-      <span class="ic">⬇</span> 下载安装包 a16.1.1.1（增强版）
+      下载安装包 a16.1.1.1（增强版）
     </a>
     <a class="dl-btn ghost" href="https://gitee.com/xysxg/creation-studio-download/raw/master/creation-studio.apk">
       备用下载（Gitee 国内镜像）
@@ -271,7 +272,7 @@
   <div class="dlbox win">
     <div class="badge">Windows 桌面版 · Electron 窗口</div>
     <a class="dl-btn alt" href="https://github.com/xysxgit/creation-studio-desktop/releases/download/windows-desktop-v0.2.10/creation-studio-desktop-v0.2.10-portable-x64.exe">
-      <span class="ic">🖥️</span> 下载 Windows 桌面版 v0.2.10（单文件）
+      下载 Windows 桌面版 v0.2.10（单文件）
     </a>
     <a class="dl-btn ghost" href="https://gitee.com/xysxg/creation-studio-download/releases/download/windows-desktop-v0.2.10/creation-studio-desktop-v0.2.10-portable-x64.exe">
       备用下载（Gitee 国内镜像）
