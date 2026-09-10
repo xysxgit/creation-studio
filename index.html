@@ -247,7 +247,7 @@
       <span>安装包 <b>4.4 MB</b></span>
       <span>类型 <b>创作工具</b></span>
       <span>系统 <b>Android 7.0+</b></span>
-      <span>桌面版 <b>v0.2.1（单文件）</b></span>
+      <span>桌面版 <b>v0.2.10（单文件）</b></span>
     </div>
   </div>
 
@@ -267,15 +267,12 @@
   <!-- DOWNLOAD · WINDOWS 桌面版 -->
   <div class="dlbox win">
     <div class="badge">Windows 桌面版 · Electron 原生窗口</div>
-    <a class="dl-btn alt" href="https://github.com/xysxgit/creation-studio-desktop/releases/download/windows-desktop-v0.2.1/creation-studio-desktop-v0.2.1-portable-x64.exe">
-      <span class="ic">🖥️</span> 下载单文件版 exe（推荐）
+    <a class="dl-btn alt" href="https://github.com/xysxgit/creation-studio-desktop/releases/download/windows-desktop-v0.2.10/creation-studio-desktop-v0.2.10-portable-x64.exe">
+      <span class="ic">🖥️</span> 下载 Windows 桌面版 v0.2.10（单文件）
     </a>
-    <a class="dl-btn ghost" href="https://github.com/xysxgit/creation-studio-desktop/releases/download/windows-desktop-v0.2.1/creation-studio-desktop-v0.2.1-win-x64.zip">
-      <span class="ic">🗜️</span> 免安装 zip（解压即用）
-    </a>
-    <div class="dl-note">版本号 <b>v0.2.1</b>（应用内核 v2.34.22 · build 200） · 单文件约 96.5 MB ／ zip 约 153 MB · Windows x64 · 绿色免安装</div>
+    <div class="dl-note">版本号 <b>v0.2.10</b>（应用内核 v2.34.22 · build 200） · 单文件 <b>81.9 MB</b> · Windows x64 · 免安装、无需解压</div>
     <div class="steps">
-      <div class="step"><span class="n">1</span><b>双击 exe</b>单文件版双击即用（首次自解压约 5–15 秒）；zip 则解压后双击 创作助手.exe</div>
+      <div class="step"><span class="n">1</span><b>双击 exe</b>单文件版双击即用（首次解压约 5–6 秒，之后更快）</div>
       <div class="step"><span class="n">2</span><b>自动起服务</b>内置协同服务器随窗口启动；数据写在 exe 同级「创作助手-数据」，不写临时目录</div>
       <div class="step"><span class="n">3</span><b>本机即主控端</b>手机 / 平板连同一 Wi-Fi，扫码或输局域网地址即可协同</div>
     </div>
@@ -291,7 +288,7 @@
       <div class="card"><div class="emoji">☁️</div><h3>云端多版本备份</h3><p>WebDAV 同步（坚果云 / Nextcloud / Box / AList 等预设），自动保留最近 30 份快照，可一键恢复任意版本。</p></div>
       <div class="card"><div class="emoji">🤖</div><h3>AI 辅助创作</h3><p>AI 替换 / 追加正文自动生成历史记录，可回退任意版本；修改前自动把原稿存进正文回收站，安全可找回。</p></div>
       <div class="card"><div class="emoji">📱</div><h3>跨平台移动端（Capacitor）</h3><p>基于 Capacitor 构建，一次开发多端运行，横竖屏自适应，触控友好，数据本地存储、离线可用。</p></div>
-      <div class="card"><div class="emoji">🖥️</div><h3>Windows 桌面版（Electron）</h3><p>独立原生窗口，内置局域网协同服务器——打开即作为协同主控端；手机 / 平板扫码或输 IP 直接加入同一项目，另有「开机自启协同」开关；提供<b>单文件 exe</b>（双击即用）与免安装 zip 两种形态。</p></div>
+      <div class="card"><div class="emoji">🖥️</div><h3>Windows 桌面版（Electron）</h3><p>独立原生窗口，内置局域网协同服务器——打开即作为协同主控端；手机 / 平板扫码或输 IP 直接加入同一项目，另有「开机自启协同」开关；提供<b>单文件 exe</b>：双击即用，免安装、免解压。</p></div>
       <div class="card"><div class="emoji">🔒</div><h3>数据安全</h3><p>删除进回收站可恢复；正文自动备份；全程本地优先，你的作品始终在你手里。</p></div>
     </div>
   </section>
@@ -300,6 +297,7 @@
   <section>
     <h2>最近更新</h2>
     <div class="log">
+      <div class="log-item"><div class="log-ver">桌面 v0.2.10</div><div class="log-desc">桌面版累计更新（v0.2.2 → v0.2.10）：顶栏第二行去掉「正文」按钮；修复窄卡片/面板下图标被压缩而"消失"、面板 tab 点击乱跳、图标因系统缺字不显示（内嵌 155 个符号的 Noto 子集字体）等问题；卡片缩放手柄与连线锚点改为自适应（鼠标 11px / 触屏大热区，小卡片自动收缩）；双击空白可连续快速新建卡片；启动明显提速（包内文件 1600→46、体积 528MB→293MB、单文件冷启动 12s→5.5s，静态资源 gzip 后主 JS 省 67%）；新增访问令牌鉴权、单实例、崩溃自恢复、端口自动回退、退出前强制落盘；左下角状态栏同步显示内核版本与桌面版外壳版本。本版起<b>只提供单文件 exe</b>，不再提供 zip。<span>2026</span></div></div>
       <div class="log-item"><div class="log-ver">桌面 v0.2.1</div><div class="log-desc">桌面版图标修复：内嵌一套按应用实际用到的 155 个符号/emoji 子集化的开源 Noto 字体（约 273 KB，OFL），卡片状态、右侧面板、时间轴/日历、工坊等处的图标不再依赖系统 emoji 字体，系统缺字也能正常显示；欢迎页、最近项目、顶栏图标全部改为内置 SVG；顶栏第二行去掉「正文」按钮（正文入口保留在顶栏第一行左上角项目图标）。<span>2026</span></div></div>
       <div class="log-item"><div class="log-ver">桌面 v0.2.0</div><div class="log-desc">Windows 桌面版（Electron）发布：独立原生窗口 + 内置局域网协同服务器（默认 8787，本机即协同主控端）；应用内展示局域网地址与二维码、支持开机自启协同；修复旧版桌面端「双击白屏」根因（Windows 绝对路径动态 import 需 file:// URL）。同时提供单文件便携版 exe：双击即用，数据写在 exe 同级「创作助手-数据」。工程与发布见 creation-studio-desktop 仓库。<span>2026</span></div></div>
       <div class="log-item"><div class="log-ver">a16</div><div class="log-desc">增强版 native a16 更新（原生增强版）：编组可当作整张大卡片——拖编组框可整组拖动、点编组框选中并显示锚点，画布移动/缩放/对齐等操作对编组整体生效；编组内卡片与各组之间可在同一层级自由连线；编组支持一键整体收纳成小胶囊，收纳后卡随组隐藏、思维树按编组层级折叠展示；思维树/关系视图补齐编组间的层级引导连线，多选操作条自动换行、完整展示全部按钮。<span>2026</span></div></div>
@@ -319,13 +317,13 @@
     <div class="repo">
       <p>项目使用 Git 管理，云端私有仓库保存全部历史版本，并有备份点标签。</p>
       <p>远程仓库：<code>https://gitee.com/xysxg/creation-assistant.git</code></p>
-      <p>桌面版仓库：<code>https://github.com/xysxgit/creation-studio-desktop</code>（Windows 桌面版 v0.2.1 · 应用内核 v2.34.22）</p>
+      <p>桌面版仓库：<code>https://github.com/xysxgit/creation-studio-desktop</code>（Windows 桌面版 v0.2.10 · 应用内核 v2.34.22）</p>
       <p>回滚备份点：<code>0721</code>；最新常规版 v2.34.22（commit 9eaf381），网页当前发布原生增强版 a16</p>
     </div>
   </section>
 
     
-  <footer>创作助手 · 剧本工坊 — 下载与说明 · 安卓版 a16（原生增强版） · Windows 桌面版 v0.2.1（单文件 exe ／ zip） · 本页为静态说明页，可离线打开</footer>
+  <footer>创作助手 · 剧本工坊 — 下载与说明 · 安卓版 a16（原生增强版） · Windows 桌面版 v0.2.10（单文件 exe） · 本页为静态说明页，可离线打开</footer>
 </div>
 
 <!-- 音乐播放器 -->
